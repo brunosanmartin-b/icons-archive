@@ -23,17 +23,24 @@
       <div class="hero-dots"></div>
       <div class="hero-copy">
         <p class="kicker"><i></i> EL TREPAMUROS DE NUEVA YORK</p>
-        <h1>SPIDER<span>MAN</span></h1>
+        <h1 class="title-3d" aria-label="Spider-Man"><span class="title-spider" data-text="SPIDER" aria-hidden="true">SPIDER</span><span
+            class="title-man" data-text="MAN" aria-hidden="true">MAN</span></h1>
         <p class="hero-lead">Un gran poder conlleva<br>una gran responsabilidad.</p>
         <div class="hero-tags"><span>HÉROE</span><span>IDENTIDAD SECRETA</span><span>QUEENS, N.Y.</span></div>
         <!-- Fondo personalizable: asigná --hero-background: url("img/spider-man/wp16419712-alex-ross-spider-man-wallpapers.webp") en spider-man.css -->
       </div>
+      <!-- Emblema: el logo baja colgado de un hilo de telaraña. La inclinación 3D al pasar
+           el mouse está en spider-man.js -->
       <div class="hero-mark" aria-label="Emblema arácnido">
         <div class="mark-orbit"></div>
+        <span class="mark-thread" aria-hidden="true"></span>
         <div class="mark-core">
-          <img class="spider-glyph" src="img/spider-man/logo_sm.webp" alt="Logo de Spider-Man">
+          <span class="mark-web" aria-hidden="true"></span>
+          <div class="glyph-wrap">
+            <img class="spider-glyph" src="img/spider-man/logo_sm.webp" alt="Logo de Spider-Man">
+            <img class="glyph-sheen" src="img/spider-man/logo_sm.webp" alt="" aria-hidden="true">
+          </div>
         </div>
-        <span class="mark-coordinate">40°43′ N<br>73°47′ W</span>
       </div>
       <a class="scroll-cue" href="#perfil">DESCUBRIR EXPEDIENTE <span>↓</span></a>
     </section>
@@ -69,35 +76,40 @@
       <div class="section-heading"><span>GALERÍA PERSONAL</span>
         <h2>El héroe y su máscara</h2>
       </div>
-      <div class="photo-grid">
-        <div class="photo-frame">
+      <!-- Entrada al hacer scroll: Peter aparece desde abajo y Spider-Man se revela desde el centro,
+           como una máscara que se descubre. Las clases las agrega spider-man.js -->
+      <div class="photo-grid" data-reveal-group>
+        <div class="photo-frame photo-frame-peter" data-reveal>
           <img src="img/spider-man/peter parker.jpeg" alt="Peter Parker">
-          <span class="photo-caption">PETER PARKER <i>01</i></span>
+          <span class="photo-glare" aria-hidden="true"></span>
+          <span class="photo-caption">PETER PARKER <i>LA PERSONA</i></span>
         </div>
-        <div class="photo-frame photo-frame-spider">
+        <div class="photo-link" aria-hidden="true"><span><img src="img/spider-man/logo_sm.webp" alt=""></span></div>
+        <div class="photo-frame photo-frame-spider" data-reveal>
           <img src="img/spider-man/spider.jpeg" alt="Spider-Man">
-          <span class="photo-caption">SPIDER-MAN <i>02</i></span>
+          <span class="photo-glare" aria-hidden="true"></span>
+          <span class="photo-caption">SPIDER-MAN <i>EL SÍMBOLO</i></span>
         </div>
       </div>
 
       <div class="section-heading actor-heading"><span>EN LA PANTALLA GRANDE</span>
         <h3>Actores que lo protagonizaron</h3>
-        <p>Pasá el cursor sobre cada actor para revelar su traje.</p>
+        <p>Pasá el cursor sobre cada actor para revelar su traje. Hacé clic (o tocá) para quitarle la máscara por completo.</p>
       </div>
-      <div class="actor-grid">
-        <div class="photo-frame actor-frame" style="--mask-w:120%; --mask-x:-8.6%; --mask-y:-3.2%">
+      <div class="actor-grid" data-reveal-group>
+        <div class="photo-frame actor-frame" data-reveal style="--mask-w:120%; --mask-x:-8.6%; --mask-y:-3.2%">
           <img class="actor-photo" src="img/spider-man/tobey maguire.jpeg" alt="Tobey Maguire">
           <div class="actor-reveal" aria-hidden="true"><img src="img/spider-man/tobey maguire mask.jpeg" alt=""></div>
           <span class="actor-lens" aria-hidden="true"></span>
           <span class="photo-caption">TOBEY MAGUIRE <i>2002</i></span>
         </div>
-        <div class="photo-frame actor-frame" style="--mask-w:112%; --mask-x:-1.8%; --mask-y:8.1%; --mask-bg:#7b7b7b">
+        <div class="photo-frame actor-frame" data-reveal style="--mask-w:112%; --mask-x:-1.8%; --mask-y:8.1%; --mask-bg:#7b7b7b">
           <img class="actor-photo" src="img/spider-man/andrew garfield.jpeg" alt="Andrew Garfield">
           <div class="actor-reveal" aria-hidden="true"><img src="img/spider-man/andrew garfield mask.jpeg" alt=""></div>
           <span class="actor-lens" aria-hidden="true"></span>
           <span class="photo-caption">ANDREW GARFIELD <i>2012</i></span>
         </div>
-        <div class="photo-frame actor-frame" style="--mask-w:184.6%; --mask-x:-38.8%; --mask-y:-52.9%">
+        <div class="photo-frame actor-frame" data-reveal style="--mask-w:184.6%; --mask-x:-38.8%; --mask-y:-52.9%">
           <img class="actor-photo" src="img/spider-man/tom holland.jpeg" alt="Tom Holland">
           <div class="actor-reveal" aria-hidden="true"><img src="img/spider-man/tom holland mask.jpeg" alt=""></div>
           <span class="actor-lens" aria-hidden="true"></span>
@@ -224,36 +236,68 @@
         <h2>Portadores del emblema</h2>
         <p>Otras personas que asumieron la identidad de Spider-Man en distintas realidades y etapas.</p>
       </div>
-      <div class="legacy-grid">
-        <article class="legacy-card"><span class="legacy-no">01</span>
-          <div class="legacy-mark">M</div>
-          <h3>Miles Morales</h3>
-          <p>Tras la muerte de Peter en el universo Ultimate, Miles decidió continuar su legado. Más tarde, también se
-            convirtió en Spider-Man en el universo principal.</p><a
-            href="https://www.marvel.com/characters/spider-man-miles-morales/in-comics" target="_blank"
-            rel="noreferrer">VER PERFIL MARVEL ↗</a>
+      <!-- Tarjetas de selección. Cada foto está en img/spider-man/. Si algún archivo falta, la tarjeta
+           muestra un diseño de reemplazo (telaraña + inicial) en lugar de una imagen rota. -->
+      <div class="legacy-grid bearer-grid" data-reveal-group>
+        <article class="legacy-card bearer-card bearer-miles" data-reveal>
+          <button class="bearer-photo" type="button" aria-pressed="false" aria-label="Seleccionar a Miles Morales">
+            <img src="img/spider-man/miles morales.webp" alt="Miles Morales" loading="lazy">
+            <span class="bearer-fallback" aria-hidden="true"><b>M</b></span>
+            <span class="legacy-no">01</span>
+            <span class="bearer-tag">ULTIMATE · 2011</span>
+            <span class="bearer-check" aria-hidden="true">SELECCIONADO</span>
+          </button>
+          <div class="bearer-body">
+            <h3>Miles Morales</h3>
+            <p>Tras la muerte de Peter en el universo Ultimate, Miles decidió continuar su legado. Más tarde, también se
+              convirtió en Spider-Man en el universo principal.</p>
+            <a href="https://www.marvel.com/characters/spider-man-miles-morales/in-comics" target="_blank" rel="noreferrer">VER PERFIL MARVEL ↗</a>
+          </div>
         </article>
-        <article class="legacy-card"><span class="legacy-no">02</span>
-          <div class="legacy-mark">B</div>
-          <h3>Ben Reilly</h3>
-          <p>Clon de Peter Parker, fue el Scarlet Spider y llegó a tomar el manto de Spider-Man cuando Peter se retiró
-            temporalmente.</p><a href="https://www.marvel.com/characters/scarlet-spider-ben-reilly" target="_blank"
-            rel="noreferrer">VER PERFIL MARVEL ↗</a>
+        <article class="legacy-card bearer-card bearer-ben" data-reveal>
+          <button class="bearer-photo" type="button" aria-pressed="false" aria-label="Seleccionar a Ben Reilly">
+            <img src="img/spider-man/ben reilly.webp" alt="Ben Reilly" loading="lazy">
+            <span class="bearer-fallback" aria-hidden="true"><b>B</b></span>
+            <span class="legacy-no">02</span>
+            <span class="bearer-tag">CLON · 1975</span>
+            <span class="bearer-check" aria-hidden="true">SELECCIONADO</span>
+          </button>
+          <div class="bearer-body">
+            <h3>Ben Reilly</h3>
+            <p>Clon de Peter Parker, fue el Scarlet Spider y llegó a tomar el manto de Spider-Man cuando Peter se retiró
+              temporalmente.</p>
+            <a href="https://www.marvel.com/characters/scarlet-spider-ben-reilly" target="_blank" rel="noreferrer">VER PERFIL MARVEL ↗</a>
+          </div>
         </article>
-        <article class="legacy-card"><span class="legacy-no">03</span>
-          <div class="legacy-mark">O</div>
-          <h3>Otto Octavius</h3>
-          <p>Como Superior Spider-Man, ocupó el cuerpo de Peter y asumió su identidad, decidido a demostrar que podía
-            ser un héroe más eficaz.</p><a
-            href="https://www.marvel.com/characters/doctor-octopus-otto-octavius/in-comics" target="_blank"
-            rel="noreferrer">VER PERFIL MARVEL ↗</a>
+        <article class="legacy-card bearer-card bearer-otto" data-reveal>
+          <button class="bearer-photo" type="button" aria-pressed="false" aria-label="Seleccionar a Otto Octavius">
+            <img src="img/spider-man/otto.webp" alt="Otto Octavius" loading="lazy">
+            <span class="bearer-fallback" aria-hidden="true"><b>O</b></span>
+            <span class="legacy-no">03</span>
+            <span class="bearer-tag">SUPERIOR · 2013</span>
+            <span class="bearer-check" aria-hidden="true">SELECCIONADO</span>
+          </button>
+          <div class="bearer-body">
+            <h3>Otto Octavius</h3>
+            <p>Como Superior Spider-Man, ocupó el cuerpo de Peter y asumió su identidad, decidido a demostrar que podía
+              ser un héroe más eficaz.</p>
+            <a href="https://www.marvel.com/characters/doctor-octopus-otto-octavius/in-comics" target="_blank" rel="noreferrer">VER PERFIL MARVEL ↗</a>
+          </div>
         </article>
-        <article class="legacy-card"><span class="legacy-no">04</span>
-          <div class="legacy-mark">2099</div>
-          <h3>Miguel O’Hara</h3>
-          <p>Genetista del futuro que se convirtió en Spider-Man de 2099 para proteger a la gente de una Nueva York
-            dominada por corporaciones.</p><a href="https://www.marvel.com/characters/spider-man-2099-miguel-o-hara"
-            target="_blank" rel="noreferrer">VER PERFIL MARVEL ↗</a>
+        <article class="legacy-card bearer-card bearer-miguel" data-reveal>
+          <button class="bearer-photo" type="button" aria-pressed="false" aria-label="Seleccionar a Miguel O’Hara">
+            <img src="img/spider-man/miguel.webp" alt="Miguel O’Hara" loading="lazy">
+            <span class="bearer-fallback" aria-hidden="true"><b>2099</b></span>
+            <span class="legacy-no">04</span>
+            <span class="bearer-tag">NUEVA YORK · 2099</span>
+            <span class="bearer-check" aria-hidden="true">SELECCIONADO</span>
+          </button>
+          <div class="bearer-body">
+            <h3>Miguel O’Hara</h3>
+            <p>Genetista del futuro que se convirtió en Spider-Man de 2099 para proteger a la gente de una Nueva York
+              dominada por corporaciones.</p>
+            <a href="https://www.marvel.com/characters/spider-man-2099-miguel-o-hara" target="_blank" rel="noreferrer">VER PERFIL MARVEL ↗</a>
+          </div>
         </article>
       </div>
     </section>

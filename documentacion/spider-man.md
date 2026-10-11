@@ -9,28 +9,26 @@
 
 ## 1. Resumen Ejecutivo del Proyecto
 
-La página de detalle **Spider-Man (Expediente 001 / Marvel)** constituye la vista profunda ("deep-dive") del héroe dentro de la plataforma *Icons Archive*. Diseñada como un **dossier de inteligencia editorial clasificado**, la página combina el rigor estilístico de una novela gráfica de autor con la interactividad y dinamismo de una aplicación web moderna.
+La página de detalle **Spider-Man (Expediente 001 / Marvel)** es la vista profunda del héroe dentro de *Icons Archive*. Está pensada como un **dossier de archivo clasificado**: combina el rigor visual de una novela gráfica con interacciones y animaciones de una aplicación web moderna.
 
-El objetivo central de esta pieza es narrar el origen, la identidad dual (Peter Parker vs. Spider-Man), los hitos cinematográficos, las habilidades, el lore multiversal y el legado de los distintos portadores del manto arácnido, manteniendo una experiencia fluida, accesible y plenamente adaptativa en todas las resoluciones.
+El objetivo es narrar el origen, la identidad dual (Peter Parker frente a Spider-Man), los actores que lo interpretaron, las habilidades, el universo multiversal y el legado de los portadores del manto arácnido. La experiencia tiene que funcionar bien en escritorio, tablet y celular, y respetar a quienes prefieren menos movimiento.
 
 ---
 
 ## 2. Concepto Visual y Sistema de Diseño (Design System)
 
 ### 2.1. Dirección de Arte: "Dossier Clasificado de Novela Gráfica"
-A diferencia de sitios web convencionales de cómics basados en cuadrículas saturadas y colores estridentes, la dirección visual adopta:
-* **Atmósfera Dark / Noir de Archivo (`#07090e`):** Fondo negro carbón profundo con texturas sutiles de telaraña vectorial y degradados radiales nocturnos.
-* **Jerarquía Solemne:** Contrastes de escala tipográfica monumental combinados con micro-etiquetas técnicas (coordenadas, códigos de archivo, años de estreno).
-* **Tratamiento Cinematográfico:** Tarjetas con marcos fotográficos biselados, degradados internos y desenfoques por capas (`backdrop-filter: blur(10px)`).
+A diferencia de los sitios de cómics basados en cuadrículas saturadas, la dirección visual adopta:
+* **Atmósfera Noir de Archivo (`#07090e`):** Fondo negro carbón con texturas sutiles de telaraña y degradados radiales nocturnos.
+* **Jerarquía Solemne:** Contrastes de escala tipográfica monumental combinados con micro-etiquetas técnicas (códigos de archivo, años, insignias).
+* **Tratamiento Cinematográfico:** Marcos fotográficos con bordes finos, reflejos de luz que siguen al cursor y profundidad real (perspectiva 3D) en los elementos clave.
 
 ### 2.2. Tipografía y Escala
-La experiencia tipográfica se apoya en una tríada armónica cargada de intención semántica:
-
 | Familia Tipográfica | Rol en la Interfaz | Justificación Estilística |
 |---|---|---|
-| **Cinzel** (Serif) | Títulos principales, cabeceras de sección (`h1`, `h2`, `h3`) | Aporta autoridad, peso histórico y solemnidad de archivo clasificado. |
-| **Barlow Condensed** (Sans-Serif) | Insignias, kickers, numeraciones técnicas, coordenadas y botones | Evoca los rotulados y créditos clásicos del cómic tradicional americano. |
-| **DM Sans** (Sans-Serif) | Textos de cuerpo, descripciones, citas y listas de hechos | Garantiza legibilidad óptima y descanso visual en lecturas extensas. |
+| **Cinzel** (Serif) | Títulos principales, cabeceras de sección (`h1`, `h2`, `h3`) | Aporta autoridad y solemnidad de archivo. |
+| **Barlow Condensed** (Sans-Serif) | Insignias, kickers, numeraciones, etiquetas de las fotos y botones | Evoca los rotulados clásicos del cómic. |
+| **DM Sans** (Sans-Serif) | Textos de cuerpo, descripciones, citas y fichas | Legibilidad en lecturas extensas. |
 
 ### 2.3. Paleta Cromática y Tokens CSS (`spider-man.css`)
 ```css
@@ -40,21 +38,21 @@ La experiencia tipográfica se apoya en una tríada armónica cargada de intenci
   --bg-surface: #0e121b;     /* Superficie de paneles */
   --bg-card: #131724;        /* Fondo de tarjetas */
   --panel: #111420;          /* Fondo de bloques */
-  
-  --text: #f8fafc;           /* Blanco tiza de alta legibilidad */
+
+  --text: #f8fafc;           /* Blanco tiza */
   --text-secondary: #cbd5e1; /* Gris claro secundario */
-  --muted: #94a3b8;          /* Gris atenuado para metadatos */
-  
-  --red: #e62429;            /* Rojo carmesí clásico Marvel */
-  --red-hover: #ff383e;      /* Rojo energizado en interacción */
+  --muted: #94a3b8;          /* Metadatos */
+
+  --red: #e62429;            /* Rojo carmesí Marvel */
+  --red-hover: #ff383e;      /* Rojo en interacción */
   --red-glow: rgba(230, 36, 41, 0.4);
   --red-subtle: rgba(230, 36, 41, 0.12);
-  
-  --gold: #e5b958;           /* Dorado de expedientes y archivo */
+
+  --gold: #e5b958;           /* Dorado de expedientes */
   --gold-glow: rgba(229, 185, 88, 0.3);
   --gold-subtle: rgba(229, 185, 88, 0.1);
-  
-  --line: rgba(255, 255, 255, 0.08); /* Delimitadores minimalistas */
+
+  --line: rgba(255, 255, 255, 0.08);
 }
 ```
 
@@ -62,174 +60,194 @@ La experiencia tipográfica se apoya en una tríada armónica cargada de intenci
 
 ## 3. Estructura y Arquitectura de Componentes
 
-La página se organiza de forma semántica bajo estándares de HTML5:
-
 ```mermaid
 graph TD
-    TopBar[Header: Barra Superior y Retorno] --> Hero[Hero Section: Portada y Emblema Arácnido]
+    TopBar[Header: Barra Superior y Retorno] --> Hero[Hero: Título 3D y Emblema animado]
     Hero --> Nav[Nav: Barra de Navegación por Anclas]
-    Nav --> S1[01 Identidad: Perfil de Peter Parker y Ficha Técnica]
-    S1 --> S_Gal[Galería: Peter vs Spidey + Lente de Actores]
+    Nav --> S1[01 Identidad: Perfil y Ficha Técnica]
+    S1 --> S_Gal[Galería: Peter y Spider-Man revelados + Actores con lente]
     S_Gal --> S2[02 Historia: Origen y Decisión]
     S2 --> S3[03 Capacidades: Habilidades y Punto Débil]
     S3 --> S4[04 Universo: Acordeón de Lore y Medios]
-    S4 --> S5[05 Legado: Portadores del Manto Arácnido]
+    S4 --> S5[05 Legado: Tarjetas de Portadores del Emblema]
     S5 --> Note[Nota del Archivo: Monólogo de Tía May]
-    Note --> Footer[Footer: Cierre Institucional del Expediente]
+    Note --> Footer[Footer: Cierre del Expediente]
 ```
 
 ### 3.1. Barra de Encabezado (`.detail-top`)
-* Enlace de retorno `← VOLVER AL SELECTOR` hacia el catálogo principal (`index.html`).
-* Marca institucional `ICONS ARCHIVE` y placa identificatoria `EXPEDIENTE 001 / MARVEL`.
-* Disposición fija y flotante con fondo traslúcido y desenfoque para navegación continua.
+* Enlace de retorno `← VOLVER AL SELECTOR` hacia `index.html`.
+* Marca `ICONS ARCHIVE` y placa `EXPEDIENTE 001 / MARVEL`.
+* Barra fija con fondo traslúcido y desenfoque.
 
 ### 3.2. Sección Hero (`#inicio`)
-* **Título Monumental:** Tipografía escalable con acento cromático diferencial (`SPIDER<span>MAN</span>`).
-* **Kicker Editorial:** Indicador contextual `EL TREPAMUROS DE NUEVA YORK`.
-* **Emblema Arácnido con Coordenadas:** Logo oficial de Spider-Man (`img/spider-man/logo_sm.webp`) enmarcado en una órbita circular decorativa (`.mark-orbit`) y acompañado de las coordenadas geográficas reales de Queens, Nueva York (`40°43′ N, 73°47′ W`).
-* **Indicador de Desplazamiento (`.scroll-cue`):** Micro-enlace con flecha animada hacia el perfil.
+* **Título en 3D (`.title-3d`):** `SPIDER` y `MAN` están formados por tres capas (ver sección 4.1). Entran desde atrás con un desenfoque que se resuelve, y `MAN` aparece un instante después.
+* **Kicker Editorial:** `EL TREPAMUROS DE NUEVA YORK`.
+* **Emblema Arácnido (`.hero-mark`):** Logo oficial (`img/spider-man/logo_sm.webp`) dentro de una órbita decorativa. Al cargar, la órbita se abre, el núcleo aparece y el logo baja colgado de un hilo de telaraña (`.mark-thread`), se balancea y queda quieto. Dentro del núcleo hay una telaraña tenue (`spider-web.svg`).
+* **Indicador de Desplazamiento (`.scroll-cue`):** Enlace con flecha animada hacia el perfil.
+* **Sin coordenadas:** el elemento que mostraba la ubicación (`40°43′ N / 73°47′ W`) se eliminó junto con sus estilos. No se reemplazó por otro texto.
 
 ### 3.3. Barra de Navegación por Secciones (`.section-nav`)
-* Menú anclado horizontal con enlaces de salto rápido: `PERFIL`, `GALERÍA`, `HISTORIA`, `HABILIDADES`, `UNIVERSO` y `PORTADORES`.
-* Permite recorrer el documento de forma ágil sin perder la posición contextual.
+* Menú anclado con: `PERFIL`, `GALERÍA`, `HISTORIA`, `HABILIDADES`, `UNIVERSO` y `PORTADORES`.
 
 ### 3.4. Sección 01 / Identidad (`#perfil`)
-* **Tarjeta de Perfil (`.profile-card`):** Tipografía serif con énfasis en `Peter Parker`, acompañada de la icónica sentencia *“WITH GREAT POWER…”*.
-* **Ficha Técnica (`.fact-list`):** Datos organizados en pares clave-valor (Nombre, Identidad, Origen, Ocupación y Afiliaciones como Avengers y Fantastic Four).
+* **Tarjeta de Perfil (`.profile-card`):** `Peter Parker` en serif con la sentencia *“WITH GREAT POWER…”*.
+* **Ficha Técnica (`.fact-list`):** Pares clave-valor (Nombre, Identidad, Origen, Ocupación y Afiliaciones).
 
 ### 3.5. Galería Personal (`#galeria`)
-Esta sección se subdivide en dos módulos de alto impacto visual:
-1. **Dicotomía "El héroe y su máscara":**
-   * Tarjetas duales en proporción vertical (4:5): Peter Parker civil (`01`) frente a Spider-Man portando el traje (`02`).
-   * Efecto hover con zoom sutil (`scale(1.05)`), bordes internos pespunteados y rótulos en vidrio escarchado.
+1. **"El héroe y su máscara":**
+   * Dos fotos en proporción 4:5 con subtítulos **`PETER PARKER · LA PERSONA`** y **`SPIDER-MAN · EL SÍMBOLO`**.
+   * Entran al hacer scroll: Peter sube desde abajo con un recorte que se abre; Spider-Man se revela desde el centro, como una máscara que se descubre (sección 4.2).
+   * Entre las dos hay un medallón con un hilo de telaraña que las une (`.photo-link`). Se oculta en tablet y celular.
+   * Al pasar el mouse por una foto, la otra se apaga.
 2. **"En la pantalla grande — Actores que lo protagonizaron":**
    * Retratos de Tobey Maguire (2002), Andrew Garfield (2012) y Tom Holland (2016).
-   * **Mecanismo interactivo de lente reveladora** (detallado en la Sección 4).
+   * Lente reveladora que sigue al cursor (sección 5) y clic o toque para mostrar la máscara completa.
 
 ### 3.6. Sección 02 / El Comienzo (`#historia`)
-* Bloque de transición horizontal con una ilustración de telaraña vectorial estilizada (`img/spider-man/spider-web.svg`).
-* Relato del origen radioactivo y la trágica lección del tío Ben que forjó la brújula moral del personaje.
+* Bloque de transición con una telaraña vectorial (`img/spider-man/spider-web.svg`).
+* Relato del origen radioactivo y la lección del tío Ben.
 
 ### 3.7. Sección 03 / Capacidades (`#habilidades`)
-* **Grilla de Habilidades:** 4 tarjetas que desglosan el sentido arácnido, fuerza/agilidad, adherencia a superficies y su genio científico.
-* **Módulo de Punto Débil (`.weakness`):** Resalta la vulnerabilidad inherente de su humanidad, el agotamiento físico y la dependencia del fluido de sus telarañas.
+* **Grilla de Habilidades:** 4 tarjetas (sentido arácnido, fuerza y agilidad, adherencia, mente científica).
+* **Punto Débil (`.weakness`):** la humanidad debajo de la máscara, el cansancio y el fluido de las telarañas.
 
 ### 3.8. Sección 04 / Su Universo (`#universo`)
-* **Acordeón Nativo Accesible (`<details>` y `<summary>`):** Cuatro pestañas con interacción fluida sin librerías pesadas:
-  1. *Aliados:* Tía May, Mary Jane Watson, Johnny Storm, The Avengers.
-  2. *Enemigos:* Green Goblin, Doctor Octopus, Venom, Kraven the Hunter.
-  3. *Versiones más famosas:* Peter clásico, Miles Morales, Spider-Man 2099, Superior Spider-Man, Spider-Gwen.
-  4. *What If? célebres:* Unión a los Fantastic Four, mutación de seis brazos, supervivencia de Gwen Stacy, Peter como Punisher.
-* **Columnas de Medios:** Clasificación cronológica y recomendaciones en cine, series animadas de televisión y cómics de referencia histórica.
+* **Acordeón nativo (`<details>` y `<summary>`):** Aliados, Enemigos, Versiones más famosas y What If? célebres.
+* **Columnas de Medios:** Películas, Series y Cómics esenciales.
 
-### 3.9. Sección 05 / Legado Arácnido (`#portadores`)
-* Tarjetas dedicadas a Miles Morales, Ben Reilly (Scarlet Spider), Otto Octavius (Superior Spider-Man) y Miguel O'Hara (Spider-Man 2099).
-* Monogramas distintivos y enlaces externos directos a la base de datos oficial de Marvel.
+### 3.9. Sección 05 / Portadores del Emblema (`#portadores`)
+Cada personaje es una **tarjeta de selección**, como en una pantalla de elegir personaje de un videojuego:
+* **Foto (`.bearer-photo`):** es un `<button>`, así que se puede seleccionar con mouse, toque o teclado. Tiene la insignia de número (`01`–`04`), una etiqueta de época (`ULTIMATE · 2011`, `CLON · 1975`, `SUPERIOR · 2013`, `NUEVA YORK · 2099`) y la marca `SELECCIONADO` cuando está activa.
+* **Cuerpo (`.bearer-body`):** nombre, descripción y enlace al perfil de Marvel.
+* **Color propio:** cada tarjeta tiene su color (`--card-tone`) que tiñe el borde, la insignia y el resplandor.
+* **Fotos:** `img/spider-man/miles morales.webp`, `ben reilly.webp`, `otto.webp` y `miguel.webp`. Cada una tiene su encuadre (`object-position`) para que la cara quede dentro del recorte 4:5.
+* **Diseño de reemplazo:** si alguna foto no carga, la tarjeta muestra una telaraña con la inicial del personaje en contorno en lugar de una imagen rota.
 
 ### 3.10. Nota del Archivo y Footer (`.curiosity` / `.detail-footer`)
-* Cita textual del monólogo de la Tía May de *Spider-Man 2* sobre el valor del héroe interior y la necesidad de inspiración en la sociedad.
-* Botón de retorno al inicio (`VOLVER AL INICIO ↑`) y cierre de expediente.
+* Monólogo de la Tía May sobre el valor del héroe interior.
+* Enlace al perfil oficial de Marvel y botón `VOLVER AL INICIO ↑`.
 
 ---
 
-## 4. Ingeniería Interactiva: Lente Reveladora de Máscara (`spider-man.js`)
+## 4. Animaciones de Entrada y Efectos 3D
 
-Uno de los puntos culminantes de interacción de la página es la **lente dinámica** que sigue al puntero sobre las tarjetas de los actores cinematográficos para revelar progresivamente su respectiva máscara.
+### 4.1. Título "SPIDER-MAN" en 3D
+Cada línea del título son tres capas apiladas:
+1. **Cuerpo extruido:** la capa de texto base lleva sombras de `text-shadow` apiladas hacia abajo, que dan el espesor de la letra.
+2. **Cara frontal (`::before`):** con degradado metálico (blanco en SPIDER, rojo en MAN). Tiene `text-shadow: none` para no heredar las sombras del cuerpo, que la tapaban.
+3. **Reflejo (`::after`):** una franja de luz que cruza las letras (`@keyframes title-sheen`, ciclo de 7 s; en hover, 1.6 s).
 
-```
-       [ Cursor del Usuario ]
-                  │
-                  ▼ (pointermove)
-┌───────────────────────────────────────────────┐
-│              .actor-frame                     │
-│                                               │
-│   ┌───────────────────────────────────────┐   │
-│   │ .actor-photo (Foto base del actor)    │   │
-│   └───────────────────────────────────────┘   │
-│                      ▲                        │
-│                      │ mask-image             │
-│   ┌──────────────────┴────────────────────┐   │
-│   │ .actor-reveal (Máscara arácnida)      │   │
-│   │ - radial-gradient centrado en cursor  │   │
-│   └───────────────────────────────────────┘   │
-│                      ▲                        │
-│   ┌──────────────────┴────────────────────┐   │
-│   │ .actor-lens (Anillo animado / mira)   │   │
-│   │ - Rotación continua @keyframes        │   │
-│   └───────────────────────────────────────┘   │
-└───────────────────────────────────────────────┘
-```
+La inclinación al pasar el mouse la calcula `spider-man.js` y la aplica como `--tx` / `--ty` con `rotateX` y `rotateY`, con un máximo de 7°.
 
-### 4.1. Fundamento Matemático y Lógica de Animación
-* **Interpolación Lineal (Lerp):** En lugar de mover la lente de forma rígida con el mouse, se aplica una suavización progresiva:
-  $$\text{current} = \text{current} + (\text{target} - \text{current}) \times \text{EASE}$$
-  Donde $\text{EASE} = 0.35$ genera un seguimiento elástico y orgánico.
-* **Radio Proporcional al Contenedor:** El tamaño de la lente se calcula en base al ancho de la tarjeta (`Math.round(frame.offsetWidth * 0.24)`), asegurando que funcione a la perfección sin importar la resolución.
-* **Inyección de Propiedades Personalizadas CSS:** El script actualiza directamente en el DOM:
-  * `--mx`, `--my`: Coordenadas centrales de la máscara.
-  * `--lens`: Radio del degradado circular.
-  * `--lx`, `--ly`: Coordenadas de posición del anillo/mira.
-  * `--lens-px`: Diámetro total del anillo exterior.
-* **Bucle Eficiente (`requestAnimationFrame`):** La animación sólo se ejecuta mientras el puntero está dentro de la tarjeta o mientras el movimiento residual se estabiliza ($\Delta > 0.3\text{px}$), suspendiendo el consumo de GPU/CPU en estado inactivo.
+### 4.2. Logo y emblema
+* **Órbita (`orbit-arrive`):** se abre desde 60% de escala.
+* **Núcleo (`core-arrive`):** aparece desde 40% con desenfoque.
+* **Hilo (`thread-drop`):** baja, se mantiene y se desvanece.
+* **Logo (`glyph-drop`):** baja desde arriba, se balancea (+7°, −5°, +2°) y queda quieto. Dura 1.6 s con retraso de 0.65 s.
+* **Hover:** el núcleo se inclina en 3D (máximo 14°), el logo crece al 110%, la telaraña interna se enciende, se ilumina el brillo metálico y sale una onda de energía (`core-shock`).
+* **Brillo metálico (`glyph-sheen`):** una copia blanca del logo con una máscara diagonal que se mueve, así el brillo solo se ve sobre la forma de la araña. Se mezcla con `overlay`.
+
+### 4.3. Galería: revelado de Peter y Spider-Man
+* **Entrada:** cada `[data-reveal]` empieza oculto (`.will-reveal`) y cuando entra en pantalla pasa a `.is-visible`. `IntersectionObserver` lo detecta con un umbral de 25%.
+* **Peter (`peter-in`):** sube y se corre con `translate`, rota en Y y se abre desde abajo con `clip-path`.
+* **Spider-Man (`spider-in`):** se revela desde el centro con `clip-path: circle()`, como una máscara que se descubre.
+* **Imagen (`img-settle`):** la foto arranca con 125% de escala y brillo bajo, y se asienta.
+* **Subtítulos (`caption-up`) y medallón (`link-pop`):** entran después de la foto.
+* **Hover:** la foto con el mouse se inclina en 3D y gana un reflejo de luz que sigue al cursor (`--gx` / `--gy`). La otra foto baja de brillo y escala (`:has()`).
+
+### 4.4. Portadores del emblema
+* **Entrada escalonada (`card-in`):** cada tarjeta sube 60px, rota 22° en X y escala desde 94%, con un retraso de 0.12 s entre tarjetas (`--i`).
+* **Hover:** la tarjeta sube 10px y se inclina en 3D, el borde toma su color, la insignia se enciende y la foto se agranda con una franja de luz que la cruza (`title-sheen`).
+* **Selección:** al hacer clic, la tarjeta marca `SELECCIONADO`, tiene un destello interior (`select-flash`) y el resto se apaga (`.has-selection`). Otro clic la deselecciona.
 
 ---
 
-## 5. Optimización Responsive y Correcciones Técnicas
+## 5. Ingeniería Interactiva (`spider-man.js`)
 
-### 5.1. Diagnóstico del Error de Desbordamiento en Móviles
-Durante las pruebas de visualización en pantallas de celular (anchos entre 320px y 480px), las tarjetas de la sección *"GALERÍA PERSONAL — El héroe y su máscara"* generaban un desbordamiento horizontal hacia la derecha de la pantalla.
+El script está dividido en cuatro bloques:
 
-**Causa Raíz:**
-1. La clase `.photo-frame` poseía una altura declarada mediante:
-   ```css
-   @media (max-width: 480px) {
-     .photo-frame { height: clamp(430px, 125vw, 520px); }
-   }
-   ```
-2. Combinada con la regla `aspect-ratio: 4 / 5`, el navegador calculaba el ancho a partir de la altura:
-   $$\text{ancho} = \text{alto} \times \frac{4}{5} = 125\text{vw} \times 0.8 = 100\text{vw}$$
-3. Con un ancho base de `100vw`, al sumarse el padding lateral de la sección contenedora (`16px` por lado = `32px` totales), el elemento alcanzaba `100vw + 32px`.
-4. El contenedor obligaba a la página a expandirse fuera de la pantalla, provocando scroll horizontal involuntario.
+### 5.1. Inclinación 3D (`addTilt`)
+Calcula la posición del puntero dentro del área y la traduce a `--tx`, `--ty` (grados) y `--gx`, `--gy` (posición del reflejo). Se aplica al emblema, al título, a las fotos de la galería y a las tarjetas de portadores. No se activa en dispositivos sin hover (celulares) ni con movimiento reducido.
 
-### 5.2. Solución Aplicada
-1. **Sustitución por Modelo de Ancho Porcentual Fluido:**
-   ```css
-   .photo-frame {
-     width: 100%;
-     max-width: 100%;
-     min-width: 0;
-     height: auto;
-     aspect-ratio: 4 / 5;
-   }
-   ```
-   Al asignar `width: 100%` y `height: auto`, la tarjeta ocupa exactamente el ancho provisto por su columna en el grid, derivando su altura proporcional de forma segura.
-2. **Contención del Grid:** Se aseguró `width: 100%` y `box-sizing: border-box` en `.photo-grid` y `.actor-grid` en todos los media queries (`900px`, `820px`, `720px`, `480px`).
-3. **Contención de Sección:** Se incorporó `overflow: hidden` a `.photo-gallery` para salvaguardar la vista de cualquier fuga subpixel.
-4. **Optimización de Textos en Móvil:** Se ajustaron los márgenes y paddings de `.photo-caption` a `14px` en pantallas reducidas para evitar saltos de línea antiestéticos.
+### 5.2. Entradas al hacer scroll
+Asigna a cada `[data-reveal]` su posición dentro del grupo (`--i`) para escalonar la entrada y agrega `.will-reveal`. Cuando el elemento aparece en pantalla, cambia a `.is-visible` y deja de observarse.
+
+### 5.3. Lente de la galería de actores
+Mantiene la lente de la versión anterior con algunos cambios:
+* **Seguimiento con suavizado** (`EASE = 0.25`).
+* **Radio:** 24% del ancho de la tarjeta.
+* **Clic o toque:** alterna el modo **máscara completa** (`.is-full`). El radio crece hasta cubrir toda la foto y el seguimiento se detiene. Otro clic lo vuelve a su tamaño.
+* Variables que se actualizan en el DOM: `--mx`, `--my`, `--lens`, `--lx`, `--ly`, `--lens-px`.
+* El bucle `requestAnimationFrame` solo corre mientras hay movimiento o la lente está activa.
+
+### 5.4. Portadores
+* **Fotos faltantes:** si una imagen no carga, se quita y la tarjeta queda con el diseño de reemplazo (clase `.no-photo`).
+* **Selección:** una tarjeta por vez. Maneja `aria-pressed` para lectores de pantalla.
 
 ---
 
-## 6. Accesibilidad (A11y), Rendimiento y Estándares Web
+## 6. Optimización Responsive y Correcciones Técnicas
 
-* **Soporte para Movimiento Reducido (`prefers-reduced-motion`):**
-  Tanto en CSS como en JavaScript (`spider-man.js`), si el usuario tiene activada la preferencia de reducción de movimiento en su sistema operativo, el factor de amortiguación `EASE` se fija en `1` (seguimiento instantáneo sin inercia) y las animaciones de rotación infinita quedan neutralizadas.
-* **Semántica HTML y ARIA:**
-  * Uso de etiquetas estructurales `<header>`, `<main>`, `<section>`, `<article>`, `<details>`, `<summary>` y `<footer>`.
-  * Elementos puramente visuales (capas de máscara y anillos decorativos) marcados con `aria-hidden="true"`.
-  * Emblemas con `aria-label` descriptivos.
-* **Seguridad y Enlaces Salientes:**
-  Todos los enlaces a recursos externos (perfiles oficiales de Marvel Comics) cuentan con los atributos de seguridad `target="_blank"` y `rel="noreferrer"`.
-* **Cero Dependencias Externas:**
-  Toda la interactividad está construida en JavaScript Vanilla y CSS puro, prescindiendo de librerías como jQuery, Bootstrap o Tailwind, garantizando una carga inmediata y una huella de transferencia ultra ligera.
+### 6.1. Desbordamiento horizontal en celulares (corregido)
+Las tarjetas de la galería desbordaban en pantallas chicas porque `.photo-frame` tenía una altura fija en vw que, combinada con `aspect-ratio: 4 / 5`, forzaba un ancho de `100vw` más el padding de la sección. La solución fue usar `width: 100%` y `height: auto`, con `box-sizing: border-box` en las grillas y `overflow: hidden` en la sección.
+
+### 6.2. Galería en tablet (corregido hoy)
+Entre 720 px y 900 px la foto de Peter ocupaba todo el ancho de la pantalla porque la grilla de dos columnas se mantenía sin límite de ancho. Ahora la regla de una columna y `max-width: 480px` se aplica desde 900 px.
+
+### 6.3. Título sin sombras heredadas (corregido hoy)
+Las capas `::before` y `::after` del título heredaban el `text-shadow` del cuerpo. Eso tapaba la cara metálica y dejaba la palabra gris. Se fijó `text-shadow: none` en ambas capas.
+
+### 6.4. Breakpoints
+* **1080 px:** las tarjetas de habilidades y las de la sección de leyendas pasan a 2 columnas.
+* **900 px:** el héroe se centra en una columna. La galería pasa a una columna y se oculta el medallón de unión.
+* **820 px:** los actores pasan a una columna.
+* **600 px:** las tarjetas de portadores se limitan a 380 px y la foto pasa a proporción 4:3.6.
 
 ---
 
-## 7. Mapa de Archivos del Proyecto
+## 7. Accesibilidad (A11y), Rendimiento y Estándares Web
+
+* **Movimiento reducido (`prefers-reduced-motion`):**
+  * En CSS, se desactivan las animaciones del título, el logo, el núcleo y la órbita. Las entradas de las fotos y las tarjetas quedan visibles desde el inicio, sin transformaciones.
+  * En JS, `EASE` vale 1 (la lente sigue al instante), no se activa la inclinación 3D y no se usan las entradas al hacer scroll.
+* **Teclado y lectores de pantalla:**
+  * Las tarjetas de portadores son `<button>` con `aria-pressed`.
+  * El título tiene `aria-label="Spider-Man"` y sus capas visuales están marcadas con `aria-hidden`.
+  * Los elementos decorativos (órbitas, hilos, telaraña, brillos, lente) tienen `aria-hidden`.
+* **Táctil:** la inclinación 3D solo se activa con `(hover: hover)`. La lente de actores se controla con toque (clic).
+* **Semántica:** `<header>`, `<main>`, `<section>`, `<article>`, `<details>`, `<summary>`, `<footer>`.
+* **Enlaces externos:** `target="_blank"` con `rel="noreferrer"`.
+* **Sin dependencias:** JavaScript vanilla y CSS puro. `IntersectionObserver` y `:has()` son soportados por los navegadores actuales.
+
+---
+
+## 8. Mapa de Archivos del Proyecto
 
 | Archivo | Tipo | Función Principal |
 |---|---|---|
-| [`spider-man.html`](file:///c:/Users/sanma/Desktop/escuela/programacion%20web%20dinamica/proyecto%201/spider-man.html) | HTML5 | Estructura semántica, contenidos del expediente, citas, tarjetas y navegación. |
-| [`spider-man.css`](file:///c:/Users/sanma/Desktop/escuela/programacion%20web%20dinamica/proyecto%201/spider-man.css) | CSS3 | Sistema de diseño, tokens, paleta cromática, maquetación Grid/Flexbox y media queries. |
-| [`spider-man.js`](file:///c:/Users/sanma/Desktop/escuela/programacion%20web%20dinamica/proyecto%201/spider-man.js) | JS (ES6+) | Lógica de la lente interactiva, cálculo vectorial y actualización de variables CSS. |
-| [`documentacion/contexto.md`](file:///c:/Users/sanma/Desktop/escuela/programacion%20web%20dinamica/proyecto%201/documentacion/contexto.md) | Markdown | Documentación general de la pantalla de selección principal (Hero Archive). |
-| [`documentacion/spider-man.md`](file:///c:/Users/sanma/Desktop/escuela/programacion%20web%20dinamica/proyecto%201/documentacion/spider-man.md) | Markdown | Documentación técnica y de diseño específica del expediente de Spider-Man. |
+| `spider-man.html` | HTML5 | Estructura semántica, contenidos del expediente, galería, tarjetas de portadores y navegación. |
+| `spider-man.css` | CSS3 | Tokens, maquetación, título 3D, animaciones de entrada, efectos de hover y responsive. |
+| `spider-man.js` | JS (ES6+) | Inclinación 3D, entradas al hacer scroll, lente de actores (con máscara completa) y selección de portadores. |
+| `documentacion/contexto.md` | Markdown | Documentación general de la pantalla de selección principal. |
+| `documentacion/spider-man.md` | Markdown | Este documento. |
+
+---
+
+## 9. Historial de Cambios
+
+| Cambio | Detalle |
+|---|---|
+| Logo animado | Entrada con órbita, núcleo, hilo de telaraña y balanceo. Hover con inclinación 3D, telaraña encendida y onda de energía. Brillo metálico sobre la forma del logo. |
+| Título 3D | Tres capas con cara metálica, cuerpo extruido y reflejo de luz. Inclinación al pasar el mouse. |
+| Coordenadas eliminadas | Se quitaron el elemento, su HTML y sus estilos. |
+| Galería "El héroe y su máscara" | Revelado al hacer scroll (Peter sube, Spider-Man se descubre), subtítulos nuevos, medallón de unión y apagado de la foto no seleccionada. |
+| Actores | Clic o toque para mostrar la máscara completa. Entrada escalonada. |
+| Portadores del emblema | Tarjetas de selección con las fotos de Miles Morales, Ben Reilly, Otto Octavius y Miguel O’Hara, entrada escalonada, hover 3D y selección. Si una foto falta, queda un diseño de reemplazo. |
+| Correcciones | Galería en tablet, título con sombras heredadas y helper de fotos faltantes. |
+
+---
+
+## 10. Pendientes y Observaciones
+
+* **Fuentes:** se cargan desde Google Fonts. Sin conexión, la página usa fuentes de reemplazo.
+* **Compatibilidad:** `:has()` y `mask-image` requieren navegadores actuales. En navegadores viejos, la galería y el brillo del logo se ven sin esos efectos, pero el contenido sigue visible.

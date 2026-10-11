@@ -1,69 +1,78 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#06070a">
   <meta name="description" content="Explorá Icons Archive y elegí qué héroe descubrir.">
   <title>Icons Archive — Selección de héroe</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <main class="screen" id="screen">
-    <div class="backdrop" aria-hidden="true"></div><div class="grain" aria-hidden="true"></div>
+    <!-- Capas de fondo: el equipo completo abajo, luz del color del héroe y puntos -->
+    <div class="team-art" aria-hidden="true"></div>
+    <div class="tone-light" aria-hidden="true"></div>
+    <div class="dots" aria-hidden="true"></div>
 
     <header class="topbar">
-      <a class="wordmark" href="index.html" aria-label="Icons Archive, inicio"><span class="wordmark-mark"><span>I</span></span><span>Icons <b>Archive</b></span></a>
-      <span class="topbar-rule" aria-hidden="true"><i></i></span>
-      <p class="edition">Archivo de héroes</p>
+      <a class="brand" href="index.html" aria-label="Icons Archive, inicio"><span class="brand-icon">I</span> ICONS
+        <b>ARCHIVE</b></a>
+      <span class="topbar-center">ARCHIVO CENTRAL</span>
+      <span class="file-id"><b>08</b> EXPEDIENTES</span>
     </header>
+    <!-- Franja con los colores de todos los héroes: solo existe en el index -->
+    <div class="spectrum" aria-hidden="true"></div>
 
     <section class="intro" aria-labelledby="page-title">
-      <h1 id="page-title"><span class="title-rule" aria-hidden="true"></span>Icons Archive<span class="title-rule" aria-hidden="true"></span></h1>
+      <p class="kicker"><i></i> SELECCIONÁ UN EXPEDIENTE <i></i></p>
+      <h1 id="page-title">ICONS <span>ARCHIVE</span></h1>
       <p class="intro-copy">Ocho leyendas, infinitas historias. ¿A quién vas a explorar?</p>
     </section>
 
-    <div class="ambient-emblems" aria-hidden="true">
-      <img class="ambient ambient-left" id="ambientLeft" src="img/5ec273a36c295800046c81e4.webp" alt="">
-      <img class="ambient ambient-right" id="ambientRight" src="img/Green-Lantern-Logo-PNG-HD.webp" alt="">
-    </div>
-
     <section class="selector" aria-label="Selector de héroes">
-      <div class="orbit orbit-one" aria-hidden="true"></div><div class="orbit orbit-two" aria-hidden="true"></div>
-      <button class="arrow arrow-left" id="previous" aria-label="Héroe anterior"><span></span></button>
+      <!-- Nombre gigante del héroe en contorno, detrás de todo -->
+      <span class="watermark" id="heroWatermark" aria-hidden="true">SPIDER-MAN</span>
+
+      <button class="arrow arrow-left" id="previous" type="button" aria-label="Héroe anterior">←</button>
 
       <div class="hero-stage" id="heroStage" aria-live="polite" aria-atomic="true">
-        <!-- Marco Art Deco: arco escalonado con doble filete -->
-        <svg class="stage-frame" viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
-          <path class="frame-fill" d="M0 500V116H18V86H48V58H88V34H140V12H260V34H312V58H352V86H382V116H400V500Z"/>
-          <path class="frame-line" d="M0 500V116H18V86H48V58H88V34H140V12H260V34H312V58H352V86H382V116H400V500Z"/>
-          <path class="frame-line frame-inner" d="M9 491V125H27V95H57V67H97V43H149V21H251V43H303V67H343V95H373V125H391V491Z"/>
-        </svg>
-
         <div class="emblem-wrap">
-          <div class="emblem-halo"></div>
-          <div class="emblem-ring"></div>
-          <div class="emblem"><img id="heroLogo" src="img/5ec273a36c295800046c81e4.webp" alt="Símbolo de Spider-Man"></div>
-          <span class="crosshair crosshair-a"></span><span class="crosshair crosshair-b"></span>
+          <div class="emblem-glow"></div>
+          <div class="emblem-orbit orbit-a"></div>
+          <div class="emblem-orbit orbit-b"></div>
+          <div class="emblem-scan"></div>
+          <div class="emblem"><img id="heroLogo" src="img/5ec273a36c295800046c81e4.webp" alt="Símbolo de Spider-Man">
+          </div>
         </div>
 
         <div class="hero-meta" id="heroMeta">
-          <p class="hero-universe" id="heroUniverse">FRIENDLY NEIGHBORHOOD</p>
+          <div class="hero-tags">
+            <span id="heroPublisher">MARVEL</span>
+            <span class="hero-file" id="heroFile">EXPEDIENTE 001</span>
+          </div>
           <h2 id="heroName">SPIDER-MAN</h2>
-          <div class="name-rule"><span></span></div>
-          <a class="explore" id="exploreButton" href="spider-man.html" aria-label="Explorar Spider-Man"><span>Explorar héroe</span></a>
+          <p class="hero-universe" id="heroUniverse">FRIENDLY NEIGHBORHOOD</p>
+          <a class="explore" id="exploreButton" href="spider-man.html" aria-label="Abrir el expediente de Spider-Man">
+            <span id="exploreLabel">ABRIR EXPEDIENTE</span> <b aria-hidden="true">→</b>
+          </a>
         </div>
-
-        <div class="stage-foot"><span class="stage-count" id="stageCount">01 <i>/ 08</i></span><span class="stage-hint">Deslizá o usá las flechas <span class="key-hint"><kbd>←</kbd><kbd>→</kbd></span></span></div>
       </div>
 
-      <button class="arrow arrow-right" id="next" aria-label="Héroe siguiente"><span></span></button>
+      <button class="arrow arrow-right" id="next" type="button" aria-label="Héroe siguiente">→</button>
     </section>
 
-    <nav class="roster" aria-label="Elegir héroe" id="roster"></nav>
+    <div class="roster-wrap">
+      <span class="stage-count" id="stageCount">01 <i>/ 08</i></span>
+      <nav class="roster" aria-label="Elegir héroe" id="roster"></nav>
+      <span class="stage-hint">Deslizá o usá <kbd>←</kbd><kbd>→</kbd></span>
+    </div>
 
-    <footer class="footer"><span>© Icons Archive 2026</span><span class="footer-center"><span></span></span><span>Elegí tu próxima aventura</span></footer>
+    <footer class="footer"><span>© ICONS ARCHIVE 2026</span><span>ELEGÍ TU PRÓXIMA AVENTURA</span></footer>
   </main>
   <script src="script.js"></script>
 </body>
+
 </html>

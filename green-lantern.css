@@ -512,127 +512,6 @@ a {
   margin: 0 auto;
 }
 
-/* ── Section 01: Profile (Identidad) ───────────────────────── */
-.profile-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 28px;
-  align-items: stretch;
-}
-
-.profile-card {
-  padding: 38px 34px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 14px;
-  background: linear-gradient(145deg, #0f1b17 0%, #0a100e 100%);
-  border: 1px solid rgba(46, 230, 120, 0.25);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-card::after {
-  content: "";
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border: 1px solid rgba(46, 230, 120, 0.25);
-  border-radius: 50%;
-  right: -80px;
-  bottom: -90px;
-  box-shadow: 0 0 0 15px rgba(46, 230, 120, 0.05), 0 0 0 35px rgba(46, 230, 120, 0.03);
-  pointer-events: none;
-}
-
-.card-index {
-  font-family: var(--font-badge);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 2.5px;
-  color: var(--mint);
-}
-
-.profile-card h3 {
-  font-family: var(--font-display);
-  font-size: clamp(34px, 4vw, 44px);
-  font-weight: 700;
-  line-height: 1.05;
-  margin: 20px 0 16px;
-  color: #ffffff;
-}
-
-.profile-card h3 em {
-  font-style: normal;
-  color: var(--green);
-  text-shadow: 0 0 20px var(--green-glow);
-}
-
-.profile-card p {
-  font-size: 15px;
-  line-height: 1.8;
-  color: var(--text-secondary);
-  flex-grow: 1;
-}
-
-.card-signature {
-  margin-top: 26px;
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  color: var(--mint);
-  padding: 10px 16px;
-  border-left: 3px solid var(--mint);
-  background: var(--mint-subtle);
-  border-radius: 0 6px 6px 0;
-  width: fit-content;
-}
-
-.fact-list {
-  background: rgba(12, 19, 17, 0.7);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-}
-
-.fact {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding: 22px 28px;
-  border-bottom: 1px solid var(--line);
-  transition: background 0.2s ease;
-}
-
-.fact:last-child {
-  border-bottom: none;
-}
-
-.fact:hover {
-  background: rgba(46, 230, 120, 0.05);
-}
-
-.fact span {
-  font-family: var(--font-badge);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--mint);
-  flex-shrink: 0;
-}
-
-.fact b {
-  font-size: 15px;
-  font-weight: 600;
-  color: #ffffff;
-  text-align: right;
-}
-
 /* ── Section 02: Story Band (Historia) ─────────────────────── */
 .story-band {
   position: relative;
@@ -801,50 +680,6 @@ a {
   font-size: 14px;
   line-height: 1.7;
   margin: 0;
-}
-
-.weakness {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  max-width: 860px;
-  margin: 24px auto 0;
-  padding: 24px 30px;
-  border-radius: 12px;
-  border: 1px solid rgba(184, 245, 207, 0.3);
-  background: rgba(184, 245, 207, 0.05);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.weakness-mark {
-  font-family: var(--font-display);
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--mint);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1.5px solid var(--mint);
-  background: var(--mint-subtle);
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-}
-
-.weakness div > span {
-  font-family: var(--font-badge);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 2.2px;
-  color: var(--mint);
-  display: block;
-}
-
-.weakness p {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  margin-top: 6px;
 }
 
 /* ── Section 05: Legacy (Portadores del Emblema) ───────────── */
@@ -1114,9 +949,6 @@ a {
     bottom: auto;
     margin-top: 10px;
   }
-  .profile-grid {
-    grid-template-columns: 1fr;
-  }
   .story-band {
     grid-template-columns: 1fr;
   }
@@ -1162,20 +994,6 @@ a {
   }
   .legacy-grid {
     grid-template-columns: 1fr;
-  }
-  .fact {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    padding: 16px 20px;
-  }
-  .fact b {
-    text-align: left;
-  }
-  .weakness {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
   }
   .curiosity .source-link, .curiosity > a[href="#inicio"] {
     display: block;
@@ -1265,104 +1083,6 @@ a {
 
 .story-copy > p:not(.quote) + p:not(.quote) {
   margin-top: 14px;
-}
-
-/* ── 02 · Hal Jordan: línea de tiempo ─────────────────────────── */
-.hal-section {
-  border-top: 1px solid var(--line);
-}
-
-.timeline-heading {
-  margin: 88px 0 40px;
-}
-
-.timeline-heading h3 {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 3.2vw, 36px);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
-  color: #ffffff;
-  margin: 10px 0 0;
-}
-
-.timeline {
-  position: relative;
-  list-style: none;
-  max-width: 860px;
-  margin: 0 auto;
-  display: grid;
-  gap: 16px;
-}
-
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 43px;
-  top: 12px;
-  bottom: 12px;
-  width: 1.5px;
-  background: linear-gradient(180deg, transparent 0%, rgba(46, 230, 120, 0.5) 12%, rgba(46, 230, 120, 0.5) 88%, transparent 100%);
-  box-shadow: 0 0 12px var(--green-glow);
-}
-
-.timeline-item {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-}
-
-.timeline-year {
-  position: relative;
-  z-index: 1;
-  flex-shrink: 0;
-  width: 88px;
-  padding: 8px 0;
-  text-align: center;
-  font-family: var(--font-badge);
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: var(--mint);
-  border-radius: 999px;
-  border: 1px solid rgba(46, 230, 120, 0.45);
-  background: #0a140f;
-  box-shadow: 0 0 16px var(--green-subtle);
-}
-
-.timeline-item > div {
-  flex: 1;
-  padding: 18px 24px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: linear-gradient(150deg, #111a17 0%, #0a100e 100%);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.timeline-item:hover > div {
-  transform: translateX(4px);
-  border-color: rgba(46, 230, 120, 0.45);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4), 0 0 20px var(--green-subtle);
-}
-
-.timeline-item h4 {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 6px;
-}
-
-.timeline-item p {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--muted);
-}
-
-.timeline-item em {
-  color: var(--text-secondary);
 }
 
 /* ── 03 · Linternas de la Tierra: tarjetas con foto ───────────── */
@@ -1473,27 +1193,10 @@ a {
 }
 
 @media (max-width: 600px) {
-  .timeline::before {
-    left: 27px;
-  }
-  .timeline-item {
-    gap: 14px;
-  }
-  .timeline-year {
-    width: 56px;
-    font-size: 13px;
-    letter-spacing: 1px;
-  }
-  .timeline-item > div {
-    padding: 16px 18px;
-  }
   .legacy-grid.lantern-grid {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     max-width: 400px;
     margin: 0 auto;
-  }
-  .timeline-heading {
-    margin: 64px 0 32px;
   }
 }
 
@@ -1767,5 +1470,442 @@ a {
   .oath-aura,
   .oath-glow::after {
     animation: none !important;
+  }
+}
+
+/* ============================================================
+   02 · LÍNEA DE TIEMPO HORIZONTAL DE HAL JORDAN
+   Un riel de luz verde atraviesa los años. Las tarjetas se
+   recorren con las flechas (green-lantern.js) o deslizando.
+   ============================================================ */
+.hal-section {
+  border-top: 1px solid var(--line);
+}
+
+.h-timeline {
+  position: relative;
+}
+
+/* Barra superior: a quién pertenece la línea + flechas */
+.h-timeline-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.h-timeline-who {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-badge);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: var(--mint);
+}
+
+.h-timeline-who i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: hal-blink 2s ease-in-out infinite;
+}
+
+.h-timeline-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.h-timeline-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(46, 230, 120, 0.4);
+  background: rgba(46, 230, 120, 0.08);
+  color: var(--mint);
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.h-timeline-btn:hover:not(:disabled) {
+  color: #ffffff;
+  background: rgba(46, 230, 120, 0.22);
+  border-color: var(--green);
+  box-shadow: 0 0 18px var(--green-glow);
+}
+
+.h-timeline-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.h-timeline-btn:focus-visible,
+.timeline:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 4px;
+}
+
+/* El riel: fila que se desplaza en horizontal y se acomoda tarjeta por tarjeta */
+.timeline {
+  list-style: none;
+  display: flex;
+  gap: 22px;
+  margin: 0;
+  padding: 6px 4px 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 60px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 60px), transparent 100%);
+}
+
+.timeline::-webkit-scrollbar {
+  display: none;
+}
+
+/* El difuminado aparece solo del lado donde quedan más tarjetas */
+.h-timeline.is-start .timeline {
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 60px), transparent 100%);
+  mask-image: linear-gradient(90deg, #000 calc(100% - 60px), transparent 100%);
+}
+
+.h-timeline.is-end .timeline {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 60px);
+  mask-image: linear-gradient(90deg, transparent 0, #000 60px);
+}
+
+.h-timeline.is-start.is-end .timeline {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.timeline-item {
+  position: relative;
+  flex: 0 0 290px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+  scroll-snap-align: start;
+}
+
+/* Tramo del riel de luz: cada año dibuja su parte y se unen en una sola línea */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: -22px;
+  top: 18px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(46, 230, 120, 0.7), rgba(46, 230, 120, 0.35));
+  box-shadow: 0 0 10px var(--green-glow);
+}
+
+.timeline-item:last-child::before {
+  right: 0;
+  background: linear-gradient(90deg, rgba(46, 230, 120, 0.6), transparent);
+}
+
+/* Pulso de luz que viaja por el riel */
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 60px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #ffffff 0%, var(--green) 40%, transparent 70%);
+  filter: blur(1px);
+  opacity: 0;
+  animation: rail-pulse 6s linear infinite;
+  animation-delay: calc(var(--i, 0) * 1s);
+  pointer-events: none;
+}
+
+.timeline-year {
+  position: relative;
+  z-index: 1;
+  padding: 7px 18px;
+  font-family: var(--font-badge);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--mint);
+  border-radius: 999px;
+  border: 1px solid rgba(46, 230, 120, 0.55);
+  background: #0a140f;
+  box-shadow: 0 0 16px var(--green-subtle);
+  transition: all 0.3s ease;
+}
+
+/* Conector vertical entre el año y su tarjeta */
+.timeline-year::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 1.5px;
+  height: 26px;
+  background: linear-gradient(180deg, rgba(46, 230, 120, 0.7), transparent);
+}
+
+.timeline-item > div {
+  flex: 1;
+  width: 100%;
+  padding: 22px 24px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: linear-gradient(150deg, #111a17 0%, #0a100e 100%);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline-item:hover > div {
+  transform: translateY(-6px);
+  border-color: rgba(46, 230, 120, 0.5);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.45), 0 0 22px var(--green-subtle);
+}
+
+.timeline-item:hover .timeline-year {
+  color: #06100b;
+  background: var(--green);
+  box-shadow: 0 0 22px var(--green);
+}
+
+.timeline-item h4 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.timeline-item p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.timeline-item em {
+  color: var(--text-secondary);
+}
+
+/* Barra de progreso del recorrido */
+.h-timeline-progress {
+  height: 2px;
+  margin-top: 6px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.h-timeline-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  transition: width 0.2s ease;
+}
+
+@keyframes rail-pulse {
+  0% { opacity: 0; transform: translateX(-20px); }
+  10% { opacity: 1; }
+  45% { opacity: 1; }
+  55%, 100% { opacity: 0; transform: translateX(300px); }
+}
+
+@keyframes hal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@media (max-width: 600px) {
+  .timeline-item {
+    flex-basis: 78vw;
+  }
+  .h-timeline-who {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+  .h-timeline-btn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* ============================================================
+   03 · LINTERNAS DE LA TIERRA — animaciones
+   1. Entrada: al aparecer en pantalla, cada tarjeta sube una
+      tras otra y una franja de luz verde "carga" la foto.
+   2. Hover: inclinación 3D según el mouse, borde de luz que
+      gira y la foto se tiñe de verde.
+   Las clases .will-reveal / .is-visible las pone green-lantern.js;
+   sin JavaScript las tarjetas se ven normales.
+   ============================================================ */
+@property --gl-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.lantern-card {
+  --rx: 0deg;
+  --ry: 0deg;
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lantern-card:hover {
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-8px);
+  border-color: transparent;
+  box-shadow: 0 24px 44px rgba(0, 0, 0, 0.5), 0 0 34px rgba(46, 230, 120, 0.25);
+}
+
+/* Borde de luz giratorio (solo se ve en hover) */
+.lantern-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--gl-angle), transparent 0deg, var(--green) 60deg, #ffffff 90deg, var(--green) 120deg, transparent 180deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  animation: gl-border-spin 3s linear infinite;
+}
+
+.lantern-card:hover::before {
+  opacity: 1;
+}
+
+/* Tinte verde y franja de escaneo sobre la foto */
+.lantern-photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(46, 230, 120, 0) 40%, rgba(120, 255, 175, 0.55) 50%, rgba(46, 230, 120, 0) 60%, transparent 100%),
+    linear-gradient(0deg, rgba(6, 20, 12, 0.55) 0%, transparent 45%);
+  background-size: 100% 300%, 100% 100%;
+  background-position: 0 -150%, 0 0;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.lantern-card:hover .lantern-photo::before {
+  animation: gl-scan 1.4s ease-in-out;
+}
+
+.lantern-photo img {
+  filter: saturate(0.85) brightness(0.92);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+.lantern-card:hover .lantern-photo img {
+  transform: scale(1.08);
+  filter: saturate(1.1) brightness(1.05) drop-shadow(0 0 0 transparent);
+}
+
+.lantern-card .legacy-no {
+  transition: all 0.3s ease;
+}
+
+.lantern-card:hover .legacy-no {
+  color: #06100b;
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 0 16px var(--green);
+}
+
+.lantern-card h3 {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.lantern-card:hover h3 {
+  color: var(--green-hover);
+  text-shadow: 0 0 18px var(--green-glow);
+}
+
+/* Entrada al hacer scroll */
+.lantern-card.will-reveal {
+  opacity: 0;
+  transform: translateY(46px) scale(0.95);
+}
+
+.lantern-card.is-visible {
+  animation: gl-card-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.1s);
+}
+
+.lantern-card.is-visible .lantern-photo::before {
+  animation: gl-scan 1.2s ease-in-out both;
+  animation-delay: calc(var(--i, 0) * 0.1s + 0.35s);
+}
+
+/* Cuando terminó la entrada, se libera la animación para que funcione el hover */
+.lantern-card.is-done {
+  animation: none;
+  opacity: 1;
+}
+
+.lantern-card.is-done .lantern-photo::before {
+  animation: none;
+}
+
+.lantern-card.is-done:hover .lantern-photo::before {
+  animation: gl-scan 1.4s ease-in-out;
+}
+
+@keyframes gl-card-in {
+  0% {
+    opacity: 0;
+    transform: translateY(46px) scale(0.95);
+    box-shadow: 0 0 0 rgba(46, 230, 120, 0);
+  }
+  60% {
+    opacity: 1;
+    box-shadow: 0 0 40px rgba(46, 230, 120, 0.35);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes gl-scan {
+  0% { background-position: 0 -150%, 0 0; }
+  100% { background-position: 0 250%, 0 0; }
+}
+
+@keyframes gl-border-spin {
+  to { --gl-angle: 360deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lantern-card.will-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .lantern-card:hover {
+    transform: translateY(-4px);
+  }
+  .timeline-item::after {
+    display: none;
   }
 }
