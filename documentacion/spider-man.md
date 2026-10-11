@@ -86,7 +86,7 @@ graph TD
 ### 3.2. Sección Hero (`#inicio`)
 * **Título Monumental:** Tipografía escalable con acento cromático diferencial (`SPIDER<span>MAN</span>`).
 * **Kicker Editorial:** Indicador contextual `EL TREPAMUROS DE NUEVA YORK`.
-* **Emblema Arácnido con Coordenadas:** Logo oficial de Spider-Man (`img/logo_sm.webp`) enmarcado en una órbita circular decorativa (`.mark-orbit`) y acompañado de las coordenadas geográficas reales de Queens, Nueva York (`40°43′ N, 73°47′ W`).
+* **Emblema Arácnido con Coordenadas:** Logo oficial de Spider-Man (`img/spider-man/logo_sm.webp`) enmarcado en una órbita circular decorativa (`.mark-orbit`) y acompañado de las coordenadas geográficas reales de Queens, Nueva York (`40°43′ N, 73°47′ W`).
 * **Indicador de Desplazamiento (`.scroll-cue`):** Micro-enlace con flecha animada hacia el perfil.
 
 ### 3.3. Barra de Navegación por Secciones (`.section-nav`)
@@ -107,7 +107,7 @@ Esta sección se subdivide en dos módulos de alto impacto visual:
    * **Mecanismo interactivo de lente reveladora** (detallado en la Sección 4).
 
 ### 3.6. Sección 02 / El Comienzo (`#historia`)
-* Bloque de transición horizontal con una ilustración de telaraña vectorial estilizada (`img/spider-web.svg`).
+* Bloque de transición horizontal con una ilustración de telaraña vectorial estilizada (`img/spider-man/spider-web.svg`).
 * Relato del origen radioactivo y la trágica lección del tío Ben que forjó la brújula moral del personaje.
 
 ### 3.7. Sección 03 / Capacidades (`#habilidades`)

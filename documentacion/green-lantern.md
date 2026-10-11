@@ -82,7 +82,7 @@ graph TD
 * **Capa de imagen (`.hero-art`):** Ilustración de Green Lantern a su proporción original (1624 × 2500), pegada al costado izquierdo. El resto del fondo es negro. En pantallas de 1200 px o más, el contenido se corre a la derecha de la imagen; en pantallas más chicas la imagen queda detrás del texto, atenuada.
 * **Título:** `GREEN` en blanco y `LANTERN` en verde.
 * **Juramento (`.hero-lead.oath`):** Cita del juramento del Cuerpo. La última frase, *¡la luz de Linterna Verde!”*, tiene un brillo verde con humo (ver sección 4).
-* **Emblema (`.hero-mark`):** Logo de Green Lantern (`img/gl logo web.webp`) dentro de una órbita decorativa, con la coordenada `SECTOR 2814`.
+* **Emblema (`.hero-mark`):** Logo de Green Lantern (`img/green lantern/gl logo web.webp`) dentro de una órbita decorativa, con la coordenada `SECTOR 2814`.
 * **Indicador de desplazamiento (`.scroll-cue`):** Enlace animado hacia la sección "Cuerpo".
 
 ### 3.3. Barra de Navegación por Secciones (`.section-nav`)
@@ -144,21 +144,25 @@ Por qué el texto se repite en `data-text`: los pseudoelementos no pueden leer e
 
 ---
 
-## 7. Cómo agregar las fotos de las Linternas
+## 7. Fotos de las Linternas de la Tierra
 
-Cada tarjeta de la sección 03 incluye una línea comentada en el HTML, por ejemplo:
+Cada tarjeta de la sección 03 tiene su imagen oficial asignada en formato WebP dentro de la carpeta `img/green lantern/`:
 
 ```html
-<!-- <img src="img/gl hal jordan.jpg" alt="Hal Jordan"> -->
+<img src="img/green lantern/hal jordan.webp" alt="Hal Jordan">
 ```
 
-1. Guardá la imagen en la carpeta `img` con el nombre indicado en el comentario.
-2. Quitá `<!--` y `-->` de esa línea.
-3. Si el archivo tiene otra extensión (`.png`, `.webp`), cambiá el `src`.
+Las 8 Linternas de la Tierra integradas son:
+1. **Hal Jordan:** `img/green lantern/hal jordan.webp`
+2. **Guy Gardner:** `img/green lantern/guy gardner.webp`
+3. **John Stewart:** `img/green lantern/john stewart.webp`
+4. **Kyle Rayner:** `img/green lantern/kyle rayner.webp`
+5. **Simon Baz:** `img/green lantern/simon baz.webp`
+6. **Jessica Cruz:** `img/green lantern/jessica cruz.webp`
+7. **Jo Mullein:** `img/green lantern/jo mullein.webp`
+8. **Alan Scott:** `img/green lantern/alan scott.webp`
 
-La imagen cubre automáticamente el aviso *IMAGEN PRÓXIMAMENTE* y se recorta a la proporción 4:5. Ya se probó con una imagen de ejemplo.
-
-Nombres sugeridos según el comentario de cada tarjeta: `gl hal jordan.jpg`, `gl guy gardner.jpg`, `gl john stewart.jpg`, `gl kyle rayner.jpg`, `gl simon baz.jpg`, `gl jessica cruz.jpg`, `gl jo mullein.jpg` y `gl alan scott.jpg`.
+Las imágenes se adaptan automáticamente a la proporción 4:5 (`aspect-ratio: 4 / 5`) con recorte `object-fit: cover` centrado al 25% superior para priorizar rostros y torsos.
 
 ---
 
@@ -166,7 +170,7 @@ Nombres sugeridos según el comentario de cada tarjeta: `gl hal jordan.jpg`, `gl
 
 | Archivo | Tipo | Función Principal |
 |---|---|---|
-| `green-lantern.html` | HTML5 | Estructura semántica, contenido del expediente, juramento, líneas de tiempo y tarjetas de Linternas. |
+| `green-lantern.html` | HTML5 | Estructura semántica, contenido del expediente, juramento, líneas de tiempo y tarjetas de Linternas con fotos. |
 | `green-lantern.css` | CSS3 | Tokens verdes, maquetación, animaciones del juramento, responsive y componentes propios (línea de tiempo, tarjetas con foto). |
 | `index.html` / `styles.css` / `script.js` | HTML / CSS / JS | Selector principal. El botón "Explorar héroe" lleva a `green-lantern.html` cuando Green Lantern está seleccionado. |
 | `documentacion/green-lantern.md` | Markdown | Este documento. |
@@ -174,8 +178,8 @@ Nombres sugeridos según el comentario de cada tarjeta: `gl hal jordan.jpg`, `gl
 
 ---
 
-## 9. Pendientes
+## 9. Pendientes y Observaciones
 
-* **Fotos de las Linternas:** agregar las 8 imágenes siguiendo la sección 7.
-* **Enlace a DC:** no se pudo verificar en el entorno de desarrollo. Conviene abrirlo una vez para confirmar que funciona.
+* **Fotos de las Linternas:** Las 8 imágenes se encuentran organizadas en `img/green lantern/` y vinculadas a sus tarjetas.
+* **Enlace a DC:** Conviene probar el enlace externo para confirmar conectividad hacia la web oficial.
 * **Imagen `.jxl` de la carpeta `img`:** `the-green-lantern-corps_dc-comics_silo_600x.jxl` no se usa, porque ese formato no se muestra en Chrome. Si se quiere usar, hay que convertirla a `.jpg` o `.webp`.

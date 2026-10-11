@@ -33,7 +33,7 @@
   --font-badge: 'Barlow Condensed', Impact, sans-serif;
   --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
-  --hero-background: url("img/wp16419712-alex-ross-spider-man-wallpapers.webp");
+  --hero-background: url("img/spider-man/wp16419712-alex-ross-spider-man-wallpapers.webp");
 }
 
 /* ── Reset & Global Rules ──────────────────────────────────── */
@@ -1555,7 +1555,7 @@ a {
 .story-art .story-sigil{z-index:1;color:#f3e9e318}
 .story-art .story-number{z-index:2}
 /* Softer, hand-drawn spiderweb illustration in the origin panel. */
-.story-art:before{inset:3%;left:3%;top:3%;width:94%;height:94%;transform:none;border-radius:0;background:url("img/spider-web.svg") center/contain no-repeat;box-shadow:none;opacity:.38;mask-image:none;-webkit-mask-image:none}
+.story-art:before{inset:3%;left:3%;top:3%;width:94%;height:94%;transform:none;border-radius:0;background:url("img/spider-man/spider-web.svg") center/contain no-repeat;box-shadow:none;opacity:.38;mask-image:none;-webkit-mask-image:none}
 .story-art:after{display:none}
 .story-art .story-sigil{font-size:clamp(72px,12vw,135px);color:#e8474c18;text-shadow:0 0 24px #e8474c20}
 /* Portrait framing keeps Peter and Spider-Man centered without cutting off their poses. */

@@ -12,15 +12,6 @@
 </head>
 
 <body>
-  <!-- Filtro de humo para el juramento del inicio -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <filter id="smoke" x="-30%" y="-80%" width="160%" height="260%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="3" seed="4" result="noise">
-        <animate attributeName="baseFrequency" dur="14s" values="0.012 0.03;0.02 0.045;0.012 0.03" repeatCount="indefinite"/>
-      </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="26" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
   <header class="detail-top">
     <a class="brand" href="index.html"><span class="brand-icon">I</span> ICONS <b>ARCHIVE</b></a>
     <a class="back-link" href="index.html"><span>←</span> VOLVER AL SELECTOR</a>
@@ -34,16 +25,36 @@
       <div class="hero-copy">
         <p class="kicker"><i></i> EL GUARDIÁN DEL SECTOR 2814</p>
         <h1>GREEN<span>LANTERN</span></h1>
-        <p class="hero-lead oath">“En el día más brillante, en la noche más oscura, ningún mal podrá escapar de mi
-          vigía. Que aquellos que adoran el poder del mal… teman mi poder<br><span class="oath-glow"
-            data-text="¡la luz de Linterna Verde!">¡la luz de Linterna Verde!”</span></p>
+        <!-- Juramento: los versos van como cita y la última línea brilla con luz verde y humo -->
+        <blockquote class="oath">
+          <span class="oath-label">JURAMENTO DEL CUERPO</span>
+          <p class="oath-verse">En el día más brillante, en la noche más oscura,<br>
+            ningún mal podrá escapar de mi vigía.<br>
+            Que aquellos que adoran el poder del mal…<br>
+            teman mi poder,</p>
+          <p class="oath-glow">
+            <span class="oath-aura" aria-hidden="true"></span>
+            <span class="oath-smoke" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="oath-text">¡la luz de Linterna Verde!</span>
+          </p>
+        </blockquote>
+        <!-- Filtro SVG que deforma el humo para que parezca vapor y no manchas redondas -->
+        <svg class="svg-defs" aria-hidden="true" focusable="false">
+          <filter id="gl-smoke" x="-30%" y="-60%" width="160%" height="220%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.018 0.045" numOctaves="3" seed="7">
+              <animate attributeName="baseFrequency" dur="14s" values="0.018 0.045;0.026 0.06;0.018 0.045"
+                repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" scale="38" />
+          </filter>
+        </svg>
         <div class="hero-tags"><span>CUERPO DE LINTERNAS</span><span>SECTOR 2814</span><span>COAST CITY</span></div>
         <!-- Fondo personalizable: cambiá --hero-background en green-lantern.css -->
       </div>
       <div class="hero-mark" aria-label="Emblema de Green Lantern">
         <div class="mark-orbit"></div>
         <div class="mark-core">
-          <img class="lantern-glyph" src="img/gl logo web.webp" alt="Logo de Green Lantern">
+          <img class="lantern-glyph" src="img/green lantern/gl logo web.webp" alt="Logo de Green Lantern">
         </div>
         <span class="mark-coordinate">SECTOR<br>2814</span>
       </div>
@@ -59,7 +70,7 @@
       <div class="story-art">
         <span class="corps-ring corps-ring-a"></span><span class="corps-ring corps-ring-b"></span>
         <span class="story-number">OA // 01</span>
-        <img class="story-emblem" src="img/gl logo web.webp" alt="" aria-hidden="true">
+        <img class="story-emblem" src="img/green lantern/gl logo web.webp" alt="" aria-hidden="true">
       </div>
       <div class="story-copy"><span class="eyebrow">01 / EL ORIGEN DEL CUERPO</span>
         <h2>Una fuerza policial<br><em>para todo el universo.</em></h2>
@@ -187,8 +198,7 @@
       <div class="legacy-grid lantern-grid">
         <article class="legacy-card lantern-card">
           <div class="lantern-photo">
-            <!-- <img src="img/gl hal jordan.jpg" alt="Hal Jordan"> -->
-            <span class="lantern-placeholder"><b></b>IMAGEN PRÓXIMAMENTE</span>
+            <img src="img/green lantern/hal jordan.webp" alt="Hal Jordan">
             <span class="legacy-no">01</span>
           </div>
           <span class="lantern-meta">SHOWCASE #22 · 1959</span>
@@ -198,8 +208,7 @@
         </article>
         <article class="legacy-card lantern-card">
           <div class="lantern-photo">
-            <!-- <img src="img/gl guy gardner.jpg" alt="Guy Gardner"> -->
-            <span class="lantern-placeholder"><b></b>IMAGEN PRÓXIMAMENTE</span>
+            <img src="img/green lantern/guy gardner.webp" alt="Guy Gardner">
             <span class="legacy-no">02</span>
           </div>
           <span class="lantern-meta">GREEN LANTERN #59 · 1968</span>
@@ -209,8 +218,7 @@
         </article>
         <article class="legacy-card lantern-card">
           <div class="lantern-photo">
-            <!-- <img src="img/gl john stewart.jpg" alt="John Stewart"> -->
-            <span class="lantern-placeholder"><b></b>IMAGEN PRÓXIMAMENTE</span>
+            <img src="img/green lantern/john stewart.webp" alt="John Stewart">
             <span class="legacy-no">03</span>
           </div>
           <span class="lantern-meta">GREEN LANTERN #87 · 1971</span>
@@ -220,8 +228,7 @@
         </article>
         <article class="legacy-card lantern-card">
           <div class="lantern-photo">
-            <!-- <img src="img/gl kyle rayner.jpg" alt="Kyle Rayner"> -->
-            <span class="lantern-placeholder"><b></b>IMAGEN PRÓXIMAMENTE</span>
+            <img src="img/green lantern/kyle rayner.webp" alt="Kyle Rayner">
             <span class="legacy-no">04</span>
           </div>
           <span class="lantern-meta">GREEN LANTERN #48 · 1994</span>
@@ -231,8 +238,7 @@
         </article>
         <article class="legacy-card lantern-card">
           <div class="lantern-photo">
-            <!-- <img src="img/gl simon baz.jpg" alt="Simon Baz"> -->
-            <span class="lantern-placeholder"><b></b>IMAGEN PRÓXIMAMENTE</span>
+            <img src="img/green lantern/simon baz.webp" alt="Simon Baz">
             <span class="legacy-no">05</span>
           </div>
           <span class="lantern-meta">GREEN LANTERN #0 · 2012</span>
@@ -242,8 +248,7 @@
         </article>
         <article class="legacy-card lantern-card">
           <div class="lantern-photo">
-            <!-- <img src="img/gl jessica cruz.jpg" alt="Jessica Cruz"> -->
-            <span class="lantern-placeholder"><b></b>IMAGEN PRÓXIMAMENTE</span>
+            <img src="img/green lantern/jessica cruz.webp" alt="Jessica Cruz">
             <span class="legacy-no">06</span>
           </div>
           <span class="lantern-meta">JUSTICE LEAGUE #30 · 2014</span>
@@ -253,8 +258,7 @@
         </article>
         <article class="legacy-card lantern-card">
           <div class="lantern-photo">
-            <!-- <img src="img/gl jo mullein.jpg" alt="Jo Mullein"> -->
-            <span class="lantern-placeholder"><b></b>IMAGEN PRÓXIMAMENTE</span>
+            <img src="img/green lantern/jo mullein.webp" alt="Jo Mullein">
             <span class="legacy-no">07</span>
           </div>
           <span class="lantern-meta">FAR SECTOR #1 · 2019</span>
@@ -264,8 +268,7 @@
         </article>
         <article class="legacy-card lantern-card">
           <div class="lantern-photo">
-            <!-- <img src="img/gl alan scott.jpg" alt="Alan Scott"> -->
-            <span class="lantern-placeholder"><b></b>IMAGEN PRÓXIMAMENTE</span>
+            <img src="img/green lantern/alan scott.webp" alt="Alan Scott">
             <span class="legacy-no">08</span>
           </div>
           <span class="lantern-meta">ALL-AMERICAN #16 · 1940</span>

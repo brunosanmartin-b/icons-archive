@@ -33,7 +33,7 @@
   --font-badge: 'Barlow Condensed', Impact, sans-serif;
   --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   
-  --hero-background: url("img/gl fondo.jpeg");
+  --hero-background: url("img/green lantern/gl fondo.jpeg");
 }
 
 /* ── Reset & Global Rules ──────────────────────────────────── */
@@ -1425,7 +1425,7 @@ a {
 .lantern-placeholder b {
   width: 64px;
   height: 64px;
-  background: url("img/gl logo web.webp") center / contain no-repeat;
+  background: url("img/green lantern/gl logo web.webp") center / contain no-repeat;
   opacity: 0.35;
   filter: grayscale(0.3) drop-shadow(0 0 10px rgba(46, 230, 120, 0.4));
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -1535,90 +1535,237 @@ a {
   }
 }
 
+
 /* ── Juramento del inicio ─────────────────────────────────────
-   Los primeros versos van como cita y la última línea brilla en verde con humo. */
-.hero-lead.oath {
-  max-width: 560px;
-  font-size: clamp(16px, 1.45vw, 19px);
-  font-weight: 500;
-  line-height: 1.75;
-  color: #dff5e8;
-  text-wrap: pretty;
+   Los versos van como cita con una línea de luz al costado.
+   La última línea es el remate: brilla en verde, tiene un aura
+   que late y humo verde que sube desde las letras. */
+.oath {
+  position: relative;
+  max-width: 540px;
+  margin: 0;
+  padding: 4px 0 0 22px;
 }
 
+/* Línea de luz vertical, como el haz de un anillo */
+.oath::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 64px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, transparent 0%, var(--green) 25%, var(--green) 75%, transparent 100%);
+  box-shadow: 0 0 10px var(--green), 0 0 22px var(--green-glow);
+}
+
+.oath-label {
+  display: block;
+  margin-bottom: 10px;
+  font-family: var(--font-badge);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--mint);
+  opacity: 0.85;
+}
+
+.oath-verse {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.35vw, 18px);
+  font-weight: 500;
+  line-height: 1.8;
+  color: #cfe9da;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95), 0 1px 3px #000;
+}
+
+/* ── Remate: “¡la luz de Linterna Verde!” ── */
 .oath-glow {
   position: relative;
   display: inline-block;
-  margin-top: 14px;
-  white-space: nowrap;
-  font-size: clamp(21px, 2.15vw, 31px);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
-  color: #eafff2;
+  margin-top: 18px;
   isolation: isolate;
+}
+
+.oath-text {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 2.6vw, 36px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  color: #effff5;
+  text-wrap: balance;
   text-shadow:
-    0 0 6px rgba(184, 245, 207, 0.95),
-    0 0 16px rgba(46, 230, 120, 0.9),
-    0 0 34px rgba(46, 230, 120, 0.65),
-    0 0 64px rgba(46, 230, 120, 0.4);
-  animation: oath-flicker 4.5s ease-in-out infinite;
+    0 0 2px #ffffff,
+    0 0 8px rgba(184, 245, 207, 0.95),
+    0 0 18px rgba(46, 230, 120, 0.95),
+    0 0 38px rgba(46, 230, 120, 0.75),
+    0 0 72px rgba(46, 230, 120, 0.5),
+    0 0 120px rgba(46, 230, 120, 0.3);
+  animation: oath-flicker 5s ease-in-out infinite;
 }
 
-/* Dos capas de humo: copia del texto, desenfocada y deformada, que sube y se desvanece */
-.oath-glow::before,
-.oath-glow::after {
-  content: attr(data-text);
+/* Reflejo de luz que barre las letras de izquierda a derecha */
+.oath-text::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  color: rgba(46, 230, 120, 0.95);
-  text-shadow: 0 0 12px rgba(46, 230, 120, 0.8);
-  filter: url(#smoke) blur(3px);
-  opacity: 0;
+  inset: -10% -4%;
+  background: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+  background-size: 250% 100%;
+  mix-blend-mode: overlay;
   pointer-events: none;
-  animation: oath-smoke 5.5s ease-out infinite;
+  animation: oath-sheen 6s ease-in-out infinite;
 }
 
+/* Línea de luz debajo del texto */
 .oath-glow::after {
-  color: rgba(150, 255, 195, 0.85);
-  filter: url(#smoke) blur(6px);
-  animation-delay: 2.7s;
-  animation-duration: 6.5s;
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  bottom: -10px;
+  height: 2px;
+  z-index: 2;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--green-hover) 20%, #ffffff 50%, var(--green-hover) 80%, transparent);
+  box-shadow: 0 0 12px var(--green), 0 0 28px var(--green-glow);
+  animation: oath-beam 5s ease-in-out infinite;
+}
+
+/* Aura verde que late detrás de las letras */
+.oath-aura {
+  position: absolute;
+  inset: -45% -12%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(46, 230, 120, 0.42) 0%, rgba(46, 230, 120, 0.14) 45%, transparent 72%);
+  filter: blur(18px);
+  pointer-events: none;
+  animation: oath-aura 5s ease-in-out infinite;
+}
+
+/* Humo: nubes verdes desenfocadas que nacen en las letras, suben,
+   se agrandan y se desvanecen. El filtro SVG las deforma como vapor. */
+.oath-smoke {
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  bottom: 10%;
+  height: 260%;
+  z-index: 1;
+  pointer-events: none;
+  filter: url(#gl-smoke);
+}
+
+.oath-smoke i {
+  position: absolute;
+  bottom: 0;
+  width: 34%;
+  aspect-ratio: 1.6;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(120, 255, 175, 0.55) 0%, rgba(46, 230, 120, 0.28) 40%, transparent 70%);
+  filter: blur(10px);
+  opacity: 0;
+  animation: oath-smoke 7s ease-out infinite;
+}
+
+.oath-smoke i:nth-child(1) { left: 0%;  animation-delay: 0s; }
+.oath-smoke i:nth-child(2) { left: 18%; animation-delay: 1.2s; animation-duration: 8s; }
+.oath-smoke i:nth-child(3) { left: 36%; animation-delay: 2.4s; }
+.oath-smoke i:nth-child(4) { left: 54%; animation-delay: 0.6s; animation-duration: 8.5s; }
+.oath-smoke i:nth-child(5) { left: 70%; animation-delay: 3.4s; }
+.oath-smoke i:nth-child(6) { left: 28%; animation-delay: 4.6s; animation-duration: 9s; width: 46%; }
+
+/* El SVG solo aporta el filtro: no ocupa lugar */
+.svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 @keyframes oath-smoke {
   0% {
     opacity: 0;
-    transform: translateY(2px) scale(1);
+    transform: translate(0, 10%) scale(0.6);
   }
-  18% {
-    opacity: 0.95;
+  15% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.45;
   }
   100% {
     opacity: 0;
-    transform: translateY(-52px) scale(1.14, 1.5);
+    transform: translate(12%, -170%) scale(1.9, 2.3);
   }
 }
 
 @keyframes oath-flicker {
   0%, 100% { filter: brightness(1); }
-  48% { filter: brightness(1.12); }
-  52% { filter: brightness(0.94); }
-  56% { filter: brightness(1.08); }
+  46% { filter: brightness(1.15); }
+  49% { filter: brightness(0.9); }
+  52% { filter: brightness(1.12); }
+  70% { filter: brightness(1.04); }
 }
 
+@keyframes oath-aura {
+  0%, 100% { opacity: 0.7; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes oath-beam {
+  0%, 100% { opacity: 0.6; transform: scaleX(0.85); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes oath-sheen {
+  0%, 55% { background-position: 150% 0; }
+  100% { background-position: -50% 0; }
+}
+
+/* Pantallas medianas y chicas: el hero se centra, así que el juramento
+   también se centra y la línea lateral pasa a ser una línea arriba. */
 @media (max-width: 900px) {
-  .hero-lead.oath {
-    margin-left: auto;
-    margin-right: auto;
+  .oath {
+    margin: 0 auto;
+    padding: 18px 0 0;
+  }
+  .oath::before {
+    left: 50%;
+    top: 0;
+    bottom: auto;
+    width: 64px;
+    height: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
   }
 }
 
+@media (max-width: 600px) {
+  .oath-verse br {
+    display: none;
+  }
+  .oath-text {
+    font-size: clamp(22px, 7vw, 28px);
+  }
+}
+
+/* Movimiento reducido: humo quieto y suave, sin parpadeo */
 @media (prefers-reduced-motion: reduce) {
-  .oath-glow::before,
-  .oath-glow::after {
-    animation: none;
+  .oath-smoke i {
+    animation: none !important;
     opacity: 0.35;
+    transform: translateY(-40%) scale(1.3);
+  }
+  .oath-text,
+  .oath-text::after,
+  .oath-aura,
+  .oath-glow::after {
+    animation: none !important;
   }
 }
