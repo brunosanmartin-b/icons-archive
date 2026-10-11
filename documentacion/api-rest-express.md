@@ -71,11 +71,16 @@ npm install      # instala express, cors y nodemon (solo la primera vez)
 npm run dev      # inicia el servidor con nodemon
 ```
 
+**Notas:**
+* En las versiones nuevas de Node, `node --test tests/` ya no funciona porque trata `tests/` como un archivo. Por eso el script usa `node --test`, que encuentra solo los archivos de prueba.
+* `npm install` puede avisar de vulnerabilidades en dependencias. Se revisan con `npm audit`. **No conviene usar `npm audit fix --force`**, porque puede bajar nodemon a una versión vieja (1.x); si pasa, se corrige con `npm install -D nodemon@^3.1.10`.
+* Para detener el servidor se usa `Ctrl + C` en la terminal donde se inició.
+
 | Script | Comando | Uso |
 |---|---|---|
 | `npm start` | `node server.js` | Inicia el servidor en modo normal. |
 | `npm run dev` | `nodemon server.js` | Inicia el servidor y lo reinicia al guardar cambios (incluido `heroes.json`). |
-| `npm test` | `node --test tests/` | Ejecuta las pruebas de la API. |
+| `npm test` | `node --test` | Ejecuta las pruebas de la API (busca los archivos `*.test.js`). |
 
 Con el servidor en marcha:
 * **Sitio completo:** `http://localhost:3000`
