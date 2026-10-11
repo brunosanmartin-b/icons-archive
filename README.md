@@ -133,4 +133,4 @@ En la carpeta [`documentacion/`](documentacion/) hay una guía por cada expedien
 
 Proyecto educativo, sin fines de lucro. Los personajes, nombres, logos e imágenes pertenecen a sus respectivos dueños (Marvel, DC y otros titulares de derechos) y se usan solo con fines escolares. Este sitio no es oficial ni está afiliado a ellos.
 
-**Autor:** Bruno · EPET N.º 20, Neuquén.
+**Autores:** Bruno San Martin, Iasser Chahaud y Gael Rodriguez · EPET N.º 20, 6to 5ta Neuquén.
