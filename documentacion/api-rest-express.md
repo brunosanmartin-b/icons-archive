@@ -1,62 +1,64 @@
-# Propuesta Técnica — API REST con Express para Hero Archive
+# API REST con Express — Icons Archive
 
-**Proyecto:** Selección interactiva de héroes (Hero Archive)  
+**Proyecto:** Selección interactiva de héroes (Icons Archive)  
 **Materia/Ámbito:** Programación Web Dinámica  
 **Fecha:** Octubre 2026  
-**Estado:** Propuesta (no implementada)  
+**Estado:** Implementada (primera etapa, solo lectura)  
 
 ---
 
 ## 1. Objetivo
 
-Actualmente, Hero Archive funciona íntegramente del lado del cliente: los datos de cada héroe (nombre, editorial, color `--tone` y logo) se encuentran definidos dentro de `script.js`.
+Hasta esta etapa, Icons Archive funcionaba íntegramente del lado del cliente: los datos de cada héroe (nombre, editorial, color `--tone`, logo y página) estaban definidos dentro de `script.js`.
 
-Se propone incorporar una **API REST básica desarrollada con Node.js y Express** que se encargue de almacenar y servir esa información. De esta manera:
+Se incorporó una **API REST desarrollada con Node.js y Express** que almacena y sirve esa información. De esta manera:
 
 * Se separan las responsabilidades entre **frontend** (presentación e interacción) y **backend** (datos y lógica).
-* Se podrán agregar o modificar héroes sin editar el código del frontend.
-* Se sentarán las bases para funcionalidades futuras (base de datos, votos, usuarios).
+* Se pueden agregar o modificar héroes editando `server/data/heroes.json`, sin tocar el código del frontend.
+* Quedan sentadas las bases para funcionalidades futuras (base de datos, votos, usuarios).
 
 ---
 
-## 2. Tecnologías Propuestas
+## 2. Tecnologías
 
 | Tecnología | Uso |
 |---|---|
-| **Node.js** (v18 o superior) | Entorno de ejecución de JavaScript del lado del servidor. |
-| **Express** | Framework para definir rutas y manejar peticiones HTTP. |
-| **cors** | Middleware para permitir peticiones desde el frontend si se sirve desde otro origen. |
+| **Node.js** (v18 o superior) | Entorno de ejecución de JavaScript del lado del servidor. También aporta `fetch` y el test runner `node:test`. |
+| **Express 5** | Framework para definir rutas y manejar peticiones HTTP. |
+| **cors** | Middleware que permite usar la API aunque el frontend se abra desde otro origen. |
 | **nodemon** (desarrollo) | Reinicia el servidor automáticamente al guardar cambios. |
-| **JSON** | Formato de almacenamiento inicial de los datos (sin base de datos en esta etapa). |
+| **JSON** | Formato de almacenamiento de los datos (sin base de datos en esta etapa). |
 
 ---
 
-## 3. Estructura de Carpetas Propuesta
+## 3. Estructura de Carpetas
 
 ```
 proyecto 1/
 ├── documentacion/
-│   ├── contexto.md
-│   └── api-rest-express.md
-├── public/                  ← frontend actual
-│   ├── index.html
-│   ├── styles.css
-│   ├── script.js
-│   └── img/
-│       ├── background.jpg
-│       └── logos/
-└── server/                  ← backend nuevo
+├── img/
+├── index.html, styles.css, script.js        ← selector (consume la API)
+├── spider-man.html / .css / .js             ← expediente de Spider-Man
+├── green-lantern.html / .css / .js          ← expediente de Green Lantern
+└── server/                                  ← backend
     ├── package.json
-    ├── server.js            ← punto de entrada
+    ├── .gitignore                           ← excluye node_modules/
+    ├── server.js                            ← punto de entrada (pone a escuchar la app)
+    ├── app.js                               ← arma la app: middlewares, API y frontend
     ├── data/
-    │   └── heroes.json      ← datos de los héroes
+    │   └── heroes.json                      ← datos de los 8 héroes
     ├── routes/
-    │   └── heroes.routes.js ← definición de rutas
-    └── controllers/
-        └── heroes.controller.js ← lógica de cada ruta
+    │   └── heroes.routes.js                 ← definición de rutas
+    ├── controllers/
+    │   └── heroes.controller.js             ← lógica de cada ruta
+    └── tests/
+        └── api.test.js                      ← pruebas automáticas
 ```
 
-> **Nota:** se propone mover los archivos actuales del frontend a `public/` para que Express pueda servirlos directamente. Si se prefiere no moverlos, el frontend puede seguir abriéndose por separado y consumir la API gracias a `cors`.
+**Decisiones respecto de la propuesta original:**
+* **El frontend no se movió a `public/`.** Sigue en la raíz del proyecto, así se puede seguir abriendo con doble clic. Express sirve esa carpeta directamente.
+* **La app se separó en `app.js` y `server.js`.** `app.js` arma la aplicación sin ponerla a escuchar, lo que permite que los tests la levanten en un puerto libre. `server.js` solo la inicia.
+* **Lo que no se publica:** las carpetas `server/` y `documentacion/` responden `404` si se las pide desde el navegador, y la carpeta `.git` se ignora (`dotfiles: 'ignore'`).
 
 ---
 
@@ -65,253 +67,137 @@ proyecto 1/
 Desde la carpeta `server/`:
 
 ```bash
-npm init -y
-npm install express cors
-npm install --save-dev nodemon
+npm install      # instala express, cors y nodemon (solo la primera vez)
+npm run dev      # inicia el servidor con nodemon
 ```
 
-En `package.json` se agregarían los siguientes scripts:
+| Script | Comando | Uso |
+|---|---|---|
+| `npm start` | `node server.js` | Inicia el servidor en modo normal. |
+| `npm run dev` | `nodemon server.js` | Inicia el servidor y lo reinicia al guardar cambios (incluido `heroes.json`). |
+| `npm test` | `node --test tests/` | Ejecuta las pruebas de la API. |
 
-```json
-"scripts": {
-  "start": "node server.js",
-  "dev": "nodemon server.js"
-}
-```
+Con el servidor en marcha:
+* **Sitio completo:** `http://localhost:3000`
+* **API:** `http://localhost:3000/api/heroes`
 
-Para iniciar el servidor en modo desarrollo:
-
-```bash
-npm run dev
-```
-
-El servidor quedaría disponible en `http://localhost:3000` *(puerto hipotético, configurable)*.
+El puerto se puede cambiar con la variable de entorno `PORT`.
 
 ---
 
 ## 5. Modelo de Datos
-
-Cada héroe se representaría como un objeto con la siguiente forma:
 
 | Campo | Tipo | Descripción |
 |---|---|---|
 | `id` | string | Identificador único en minúsculas y con guiones (ej. `spider-man`). |
 | `nombre` | string | Nombre visible del héroe. |
 | `editorial` | string | `"marvel"` o `"dc"`. |
+| `lema` | string | Frase que se muestra debajo del nombre (ej. `"THE DARK KNIGHT"`). |
 | `tone` | string | Color hexadecimal que se inyecta en la variable CSS `--tone`. |
-| `logo` | string | Ruta relativa a la imagen del logo. |
+| `logo` | string | Ruta relativa al logo dentro de `img/`. |
+| `alt` | string | Texto alternativo del logo. |
+| `pagina` | string \| null | Página del expediente, o `null` si todavía no existe. |
 
-### Ejemplo de `data/heroes.json`
+Los campos `lema`, `alt` y `pagina` se agregaron respecto de la propuesta porque el selector los necesita. Las rutas de los logos y los colores son los reales del proyecto.
 
-Los colores corresponden a los definidos en el rediseño. Las rutas de los logos son **valores hipotéticos** y deben ajustarse a los nombres reales de los archivos.
-
-```json
-[
-  { "id": "spider-man",      "nombre": "Spider-Man",      "editorial": "marvel", "tone": "#e8474c", "logo": "img/logos/spider-man.png" },
-  { "id": "green-lantern",   "nombre": "Green Lantern",   "editorial": "dc",     "tone": "#48c982", "logo": "img/logos/green-lantern.png" },
-  { "id": "batman",          "nombre": "Batman",          "editorial": "dc",     "tone": "#b9c4d1", "logo": "img/logos/batman.png" },
-  { "id": "superman",        "nombre": "Superman",        "editorial": "dc",     "tone": "#df424b", "logo": "img/logos/superman.png" },
-  { "id": "hulk",            "nombre": "Hulk",            "editorial": "marvel", "tone": "#78c951", "logo": "img/logos/hulk.png" },
-  { "id": "iron-man",        "nombre": "Iron Man",        "editorial": "marvel", "tone": "#eaa24d", "logo": "img/logos/iron-man.png" },
-  { "id": "wonder-woman",    "nombre": "Wonder Woman",    "editorial": "dc",     "tone": "#e5b86c", "logo": "img/logos/wonder-woman.png" },
-  { "id": "captain-america", "nombre": "Captain America", "editorial": "marvel", "tone": "#5d9dd3", "logo": "img/logos/captain-america.png" }
-]
-```
-
----
-
-## 6. Endpoints Propuestos
-
-En esta primera etapa la API sería **de solo lectura**.
-
-| Método | Ruta | Descripción | Respuesta exitosa |
-|---|---|---|---|
-| `GET` | `/api/heroes` | Devuelve la lista completa de héroes. | `200` + array de héroes |
-| `GET` | `/api/heroes?editorial=marvel` | Filtra la lista por editorial (`marvel` o `dc`). | `200` + array filtrado |
-| `GET` | `/api/heroes/:id` | Devuelve un héroe según su `id`. | `200` + objeto héroe |
-
-### Respuestas de error
-
-| Código | Caso | Cuerpo |
-|---|---|---|
-| `400` | La editorial enviada no es `marvel` ni `dc`. | `{ "error": "Editorial inválida" }` |
-| `404` | No existe un héroe con ese `id`. | `{ "error": "Héroe no encontrado" }` |
-| `404` | La ruta solicitada no existe. | `{ "error": "Ruta no encontrada" }` |
-| `500` | Error interno del servidor. | `{ "error": "Error interno del servidor" }` |
-
-### Ejemplo de petición y respuesta
-
-```
-GET /api/heroes/batman
-```
+### Ejemplo (`GET /api/heroes/batman`)
 
 ```json
 {
   "id": "batman",
   "nombre": "Batman",
   "editorial": "dc",
-  "tone": "#b9c4d1",
-  "logo": "img/logos/batman.png"
+  "lema": "THE DARK KNIGHT",
+  "tone": "#c3cedb",
+  "logo": "img/Batman-movie-Logo-2005.webp",
+  "alt": "Símbolo de Batman",
+  "pagina": null
 }
 ```
 
 ---
 
-## 7. Código Base Propuesto
+## 6. Endpoints
 
-### 7.1. `server.js` — Punto de entrada
+En esta primera etapa la API es **de solo lectura**.
 
-```js
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const heroesRoutes = require('./routes/heroes.routes');
+| Método | Ruta | Descripción | Respuesta exitosa |
+|---|---|---|---|
+| `GET` | `/api/heroes` | Devuelve la lista completa de héroes. | `200` + array de héroes |
+| `GET` | `/api/heroes?editorial=marvel` | Filtra por editorial (`marvel` o `dc`, sin distinguir mayúsculas). | `200` + array filtrado |
+| `GET` | `/api/heroes/:id` | Devuelve un héroe según su `id` (sin distinguir mayúsculas). | `200` + objeto héroe |
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+### Respuestas de error
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
-
-// Servir el frontend estático
-app.use(express.static(path.join(__dirname, '..', 'public')));
-
-// Rutas de la API
-app.use('/api/heroes', heroesRoutes);
-
-// Ruta no encontrada
-app.use('/api', (req, res) => {
-  res.status(404).json({ error: 'Ruta no encontrada' });
-});
-
-// Manejo centralizado de errores
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({ error: 'Error interno del servidor' });
-});
-
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT}`);
-});
-```
-
-### 7.2. `routes/heroes.routes.js` — Definición de rutas
-
-```js
-const { Router } = require('express');
-const { listarHeroes, obtenerHeroe } = require('../controllers/heroes.controller');
-
-const router = Router();
-
-router.get('/', listarHeroes);
-router.get('/:id', obtenerHeroe);
-
-module.exports = router;
-```
-
-### 7.3. `controllers/heroes.controller.js` — Lógica
-
-```js
-const heroes = require('../data/heroes.json');
-
-const EDITORIALES_VALIDAS = ['marvel', 'dc'];
-
-function listarHeroes(req, res) {
-  const { editorial } = req.query;
-
-  if (!editorial) {
-    return res.json(heroes);
-  }
-
-  const editorialNormalizada = editorial.toLowerCase();
-
-  if (!EDITORIALES_VALIDAS.includes(editorialNormalizada)) {
-    return res.status(400).json({ error: 'Editorial inválida' });
-  }
-
-  const filtrados = heroes.filter(h => h.editorial === editorialNormalizada);
-  res.json(filtrados);
-}
-
-function obtenerHeroe(req, res) {
-  const heroe = heroes.find(h => h.id === req.params.id);
-
-  if (!heroe) {
-    return res.status(404).json({ error: 'Héroe no encontrado' });
-  }
-
-  res.json(heroe);
-}
-
-module.exports = { listarHeroes, obtenerHeroe };
-```
+| Código | Caso | Cuerpo |
+|---|---|---|
+| `400` | La editorial no es `marvel` ni `dc`, llega vacía o repetida. | `{ "error": "Editorial inválida" }` |
+| `404` | No existe un héroe con ese `id`. | `{ "error": "Héroe no encontrado" }` |
+| `404` | La ruta de la API no existe. | `{ "error": "Ruta no encontrada" }` |
+| `500` | Error interno del servidor. | `{ "error": "Error interno del servidor" }` |
 
 ---
 
-## 8. Integración con el Frontend
+## 7. Funcionamiento del Código
 
-En `script.js`, el array de héroes definido de forma fija se reemplazaría por una petición a la API. El resto de la lógica (navegación con flechas, animación `arrive`, inyección de `--tone`) se mantendría igual, ya que recibiría los mismos datos.
-
-```js
-async function cargarHeroes() {
-  try {
-    const respuesta = await fetch('/api/heroes');
-
-    if (!respuesta.ok) {
-      throw new Error(`Error HTTP ${respuesta.status}`);
-    }
-
-    const heroes = await respuesta.json();
-    iniciarGaleria(heroes); // función existente que arma la selección (nombre hipotético)
-  } catch (error) {
-    console.error('No se pudieron cargar los héroes:', error);
-    // Se propone mostrar un mensaje visible al usuario en #heroStage
-  }
-}
-
-cargarHeroes();
-```
-
-> **Nota:** `iniciarGaleria` es un nombre hipotético. Debe reemplazarse por la función que actualmente inicializa la selección de héroes en `script.js`.
-
-### Consideración de UX
-Mientras se espera la respuesta del servidor, se recomienda mostrar un estado de carga discreto (por ejemplo, el halo `.emblem-halo` pulsando sin logo) para mantener la coherencia con la estética noir del proyecto.
+* **`app.js`:** registra `cors()` y `express.json()`, monta las rutas en `/api/heroes`, responde `404` en JSON para cualquier otra ruta de `/api`, bloquea `/server` y `/documentacion`, sirve el frontend con `express.static` y define el manejador centralizado de errores (`500`).
+* **`routes/heroes.routes.js`:** asocia `GET /` con `listarHeroes` y `GET /:id` con `obtenerHeroe`.
+* **`controllers/heroes.controller.js`:** contiene la lógica. `listarHeroes` valida la editorial (texto, sin espacios, en minúsculas) y filtra. `obtenerHeroe` busca por `id`.
+* **`server.js`:** importa la app y la pone a escuchar en `PORT` (3000 por defecto).
 
 ---
 
-## 9. Pruebas de la API
+## 8. Integración con el Frontend (`script.js`)
 
-Con el servidor en marcha, los endpoints pueden verificarse de las siguientes formas:
+El selector pide los héroes a la API al cargar la página:
 
-* **Navegador:** abrir `http://localhost:3000/api/heroes` directamente.
-* **Thunder Client / Postman:** extensiones o aplicaciones para enviar peticiones y revisar códigos de estado.
+1. `cargarHeroes()` hace `fetch('/api/heroes')`.
+2. `desdeApi()` convierte cada héroe al formato que usa el selector (por ejemplo, `nombre` → `name` en mayúsculas, `pagina` → `page`).
+3. Con los datos listos se arman las fichas del roster (`armarRoster()`) y se muestra el primer héroe (`render()`).
+
+**Datos de respaldo:** `script.js` conserva la lista de héroes como `heroesLocales`. Se usa en estos casos:
+* La página se abre con doble clic (`file://`), donde no hay servidor.
+* La página se abre con otro servidor sin la API (por ejemplo, Live Server).
+* La API responde con error o con una lista vacía. En ese caso queda un aviso en la consola.
+
+Así el selector funciona siempre, con o sin backend. El contador (`01 / 08`) se calcula según la cantidad de héroes recibidos.
+
+---
+
+## 9. Pruebas
+
+### 9.1. Pruebas automáticas (`npm test`)
+`tests/api.test.js` levanta la app en un puerto libre y verifica:
+
+| Petición | Resultado esperado |
+|---|---|
+| `GET /api/heroes` | `200`, 8 héroes |
+| `GET /api/heroes?editorial=marvel` | `200`, 4 héroes de Marvel |
+| `GET /api/heroes?editorial=DC` | `200`, 4 héroes (no distingue mayúsculas) |
+| `GET /api/heroes?editorial=image` | `400`, editorial inválida |
+| `GET /api/heroes/superman` | `200`, objeto de Superman |
+| `GET /api/heroes/thor` | `404`, héroe no encontrado |
+| `GET /api/villanos` | `404`, ruta no encontrada |
+| `GET /` | `200`, sirve `index.html` |
+| `GET /server/package.json` | `404`, el backend no se publica |
+
+### 9.2. Pruebas manuales
+* **Navegador:** abrir `http://localhost:3000/api/heroes`.
+* **Thunder Client / Postman:** enviar las peticiones de la tabla y revisar los códigos.
 * **Terminal:**
 
 ```bash
 curl http://localhost:3000/api/heroes
 curl http://localhost:3000/api/heroes/hulk
 curl "http://localhost:3000/api/heroes?editorial=dc"
-curl http://localhost:3000/api/heroes/no-existe   # debería responder 404
+curl http://localhost:3000/api/heroes/no-existe   # responde 404
 ```
-
-### Casos de prueba sugeridos
-
-| Petición | Resultado esperado |
-|---|---|
-| `GET /api/heroes` | `200`, 8 héroes |
-| `GET /api/heroes?editorial=marvel` | `200`, 4 héroes |
-| `GET /api/heroes?editorial=DC` | `200`, 4 héroes (no distingue mayúsculas) |
-| `GET /api/heroes?editorial=image` | `400`, editorial inválida |
-| `GET /api/heroes/superman` | `200`, objeto de Superman |
-| `GET /api/heroes/thor` | `404`, héroe no encontrado |
-| `GET /api/villanos` | `404`, ruta no encontrada |
 
 ---
 
 ## 10. Próximas Etapas Posibles
 
-Una vez implementada esta API básica, el proyecto podría ampliarse con:
+Sobre esta API básica, el proyecto podría ampliarse con:
 
 1. **Base de datos** (SQLite como primera opción por su simplicidad) en reemplazo de `heroes.json`.
 2. **Sistema de votos:** `POST /api/heroes/:id/votar` y un ranking del héroe más elegido.

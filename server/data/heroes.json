@@ -1,0 +1,82 @@
+[
+  {
+    "id": "spider-man",
+    "nombre": "Spider-Man",
+    "editorial": "marvel",
+    "lema": "FRIENDLY NEIGHBORHOOD",
+    "tone": "#e62429",
+    "logo": "img/5ec273a36c295800046c81e4.webp",
+    "alt": "Símbolo de Spider-Man",
+    "pagina": "spider-man.html"
+  },
+  {
+    "id": "green-lantern",
+    "nombre": "Green Lantern",
+    "editorial": "dc",
+    "lema": "IN BRIGHTEST DAY",
+    "tone": "#2ee678",
+    "logo": "img/Green-Lantern-Logo-PNG-HD.webp",
+    "alt": "Símbolo de Green Lantern",
+    "pagina": "green-lantern.html"
+  },
+  {
+    "id": "batman",
+    "nombre": "Batman",
+    "editorial": "dc",
+    "lema": "THE DARK KNIGHT",
+    "tone": "#c3cedb",
+    "logo": "img/Batman-movie-Logo-2005.webp",
+    "alt": "Símbolo de Batman",
+    "pagina": null
+  },
+  {
+    "id": "superman",
+    "nombre": "Superman",
+    "editorial": "dc",
+    "lema": "MAN OF TOMORROW",
+    "tone": "#3d7bff",
+    "logo": "img/simple-red-superman-logo-png-13.webp",
+    "alt": "Símbolo de Superman",
+    "pagina": null
+  },
+  {
+    "id": "hulk",
+    "nombre": "Hulk",
+    "editorial": "marvel",
+    "lema": "STRONGEST THERE IS",
+    "tone": "#8fd14f",
+    "logo": "img/Hulk-Logo-PNG-Picture.png",
+    "alt": "Símbolo de Hulk",
+    "pagina": null
+  },
+  {
+    "id": "iron-man",
+    "nombre": "Iron Man",
+    "editorial": "marvel",
+    "lema": "GENIUS. BILLIONAIRE. HERO.",
+    "tone": "#f0a63a",
+    "logo": "img/iron-man-head-logo-graphic-5365rvzihxgtignv.webp",
+    "alt": "Símbolo de Iron Man",
+    "pagina": null
+  },
+  {
+    "id": "wonder-woman",
+    "nombre": "Wonder Woman",
+    "editorial": "dc",
+    "lema": "WARRIOR OF THE AMAZONS",
+    "tone": "#e5b958",
+    "logo": "img/Wonder-Woman-Logo-PNG-Picture.webp",
+    "alt": "Símbolo de Wonder Woman",
+    "pagina": null
+  },
+  {
+    "id": "captain-america",
+    "nombre": "Captain America",
+    "editorial": "marvel",
+    "lema": "THE FIRST AVENGER",
+    "tone": "#5d9dd3",
+    "logo": "img/captain-america-logo-27.webp",
+    "alt": "Símbolo de Captain America",
+    "pagina": null
+  }
+]

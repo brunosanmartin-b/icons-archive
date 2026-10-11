@@ -1,9 +1,12 @@
 /* ============================================================
    ICONS ARCHIVE — Selector de héroes (index.html)
+   Los héroes se piden a la API del backend (GET /api/heroes).
+   Si la página se abre sin el servidor (doble clic o Live Server),
+   se usan los datos de respaldo de abajo, así el selector funciona igual.
    Cada héroe tiene su color (tone): toda la página se tiñe con él.
    page: la página del expediente, o null si todavía no existe.
    ============================================================ */
-const heroes = [
+const heroesLocales = [
   { name: 'SPIDER-MAN', universe: 'FRIENDLY NEIGHBORHOOD', publisher: 'MARVEL', logo: 'img/5ec273a36c295800046c81e4.webp', tone: '#e62429', alt: 'Símbolo de Spider-Man', page: 'spider-man.html' },
   { name: 'GREEN LANTERN', universe: 'IN BRIGHTEST DAY', publisher: 'DC', logo: 'img/Green-Lantern-Logo-PNG-HD.webp', tone: '#2ee678', alt: 'Símbolo de Green Lantern', page: 'green-lantern.html' },
   { name: 'BATMAN', universe: 'THE DARK KNIGHT', publisher: 'DC', logo: 'img/Batman-movie-Logo-2005.webp', tone: '#c3cedb', alt: 'Símbolo de Batman', page: null },
@@ -14,6 +17,7 @@ const heroes = [
   { name: 'CAPTAIN AMERICA', universe: 'THE FIRST AVENGER', publisher: 'MARVEL', logo: 'img/captain-america-logo-27.webp', tone: '#5d9dd3', alt: 'Símbolo de Captain America', page: null }
 ];
 
+let heroes = heroesLocales;
 let current = 0;
 const $ = selector => document.querySelector(selector);
 const stage = $('#heroStage');
@@ -28,18 +32,49 @@ const explore = $('#exploreButton');
 const exploreLabel = $('#exploreLabel');
 const roster = $('#roster');
 
+// Convierte un héroe de la API (campos en español) al formato que usa el selector
+function desdeApi(heroe) {
+  return {
+    name: heroe.nombre.toUpperCase(),
+    universe: heroe.lema,
+    publisher: heroe.editorial.toUpperCase(),
+    logo: heroe.logo,
+    tone: heroe.tone,
+    alt: heroe.alt,
+    page: heroe.pagina
+  };
+}
+
+// Pide los héroes al backend. Ante cualquier problema, devuelve los datos de respaldo.
+async function cargarHeroes() {
+  if (!location.protocol.startsWith('http')) return heroesLocales; // abierto con doble clic
+  try {
+    const respuesta = await fetch('/api/heroes');
+    if (!respuesta.ok) throw new Error(`Error HTTP ${respuesta.status}`);
+    const datos = await respuesta.json();
+    if (!Array.isArray(datos) || datos.length === 0) throw new Error('La API no devolvió héroes');
+    return datos.map(desdeApi);
+  } catch (error) {
+    console.warn('No se pudo usar la API de héroes; se usan los datos locales.', error);
+    return heroesLocales;
+  }
+}
+
 // Fichas del roster: una por héroe
-heroes.forEach((hero, index) => {
-  const button = document.createElement('button');
-  button.className = 'roster-item';
-  button.type = 'button';
-  button.dataset.name = hero.name;
-  button.style.setProperty('--chip-tone', hero.tone);
-  button.setAttribute('aria-label', 'Seleccionar ' + hero.name);
-  button.innerHTML = '<img src="' + hero.logo + '" alt="" aria-hidden="true">';
-  button.addEventListener('click', () => selectHero(index));
-  roster.append(button);
-});
+function armarRoster() {
+  roster.innerHTML = '';
+  heroes.forEach((hero, index) => {
+    const button = document.createElement('button');
+    button.className = 'roster-item';
+    button.type = 'button';
+    button.dataset.name = hero.name;
+    button.style.setProperty('--chip-tone', hero.tone);
+    button.setAttribute('aria-label', 'Seleccionar ' + hero.name);
+    button.innerHTML = '<img src="' + hero.logo + '" alt="" aria-hidden="true">';
+    button.addEventListener('click', () => selectHero(index));
+    roster.append(button);
+  });
+}
 
 // Vuelca los datos del héroe actual en la página
 function render() {
@@ -53,7 +88,7 @@ function render() {
   universe.textContent = hero.universe;
   publisher.textContent = hero.publisher;
   file.textContent = 'EXPEDIENTE 0' + number;
-  count.innerHTML = number + ' <i>/ 08</i>';
+  count.innerHTML = number + ' <i>/ ' + String(heroes.length).padStart(2, '0') + '</i>';
 
   // Si el expediente todavía no existe, el botón se bloquea
   if (hero.page) {
@@ -109,9 +144,13 @@ stage.addEventListener('touchend', event => {
   touchStartX = null;
 }, { passive: true });
 
-// Primer render y animación de entrada
-render();
-window.setTimeout(() => {
-  stage.classList.add('arrive');
-  window.setTimeout(() => stage.classList.remove('arrive'), 700);
-}, 80);
+// Primer render y animación de entrada, cuando ya están los datos
+(async () => {
+  heroes = await cargarHeroes();
+  armarRoster();
+  render();
+  window.setTimeout(() => {
+    stage.classList.add('arrive');
+    window.setTimeout(() => stage.classList.remove('arrive'), 700);
+  }, 80);
+})();
