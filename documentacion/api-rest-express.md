@@ -40,6 +40,7 @@ proyecto 1/
 ├── index.html, styles.css, script.js        ← selector (consume la API)
 ├── spider-man.html / .css / .js             ← expediente de Spider-Man
 ├── green-lantern.html / .css / .js          ← expediente de Green Lantern
+├── batman.html / .css / .js                 ← expediente de Batman
 ├── bootstrap-layer.css                      ← Bootstrap en una capa CSS
 └── server/                                  ← backend
     ├── package.json

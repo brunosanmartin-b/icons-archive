@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030304">
+  <meta name="description"
+    content="Conocé el origen, el arsenal, la Batifamilia y el legado de Robin de Batman en Icons Archive.">
+  <title>Batman — Icons Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <!-- Bootstrap 5.3 en una capa CSS: disponible sin alterar el diseño (ver bootstrap-layer.css) -->
+  <link rel="stylesheet" href="bootstrap-layer.css">
+  <link rel="stylesheet" href="batman.css">
+</head>
+
+<body>
+  <header class="detail-top">
+    <a class="brand" href="index.html"><span class="brand-icon">I</span> ICONS <b>ARCHIVE</b></a>
+    <a class="back-link" href="index.html"><span>←</span> VOLVER AL SELECTOR</a>
+    <span class="file-id">EXPEDIENTE <b>003 / DC</b></span>
+  </header>
+  <!-- ScrollSpy de Bootstrap: marca en el menú la sección que se está leyendo.
+       Va en <main> y no en <body>, porque body tiene overflow-x: hidden y Bootstrap
+       lo tomaría como contenedor de scroll -->
+  <main data-bs-spy="scroll" data-bs-target=".section-nav">
+    <section class="hero" id="inicio">
+      <!-- Batman camuflado: la imagen se funde con el negro del fondo (mix-blend-mode)
+           y una luz que sigue al cursor lo revela. La luz la mueve batman.js -->
+      <div class="hero-art" aria-hidden="true">
+        <img class="hero-art-dark" src="img/batman/background.jpg" alt="">
+        <div class="hero-art-light"><img src="img/batman/background.jpg" alt=""></div>
+      </div>
+      <div class="hero-light"></div>
+      <div class="hero-dots"></div>
+      <!-- Murciélagos: los crea batman.js dentro de este contenedor -->
+      <div class="bat-sky" data-bats="hero" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <!-- Logo: aparece desde la oscuridad y un brillo lo recorre (batman.css) -->
+        <div class="hero-logo">
+          <img src="img/batman/batman-logo.webp" alt="Logo de Batman">
+        </div>
+        <p class="kicker"><i></i> EL PROTECTOR DE GOTHAM CITY</p>
+        <h1>BATMAN<span>EL CABALLERO OSCURO</span></h1>
+        <p class="hero-lead">Gotham duerme.<br>Él vigila desde las sombras.</p>
+        <div class="hero-tags"><span>DETECTIVE</span><span>IDENTIDAD SECRETA</span><span>GOTHAM CITY</span></div>
+      </div>
+      <a class="scroll-cue" href="#perfil">DESCUBRIR EXPEDIENTE <span>↓</span></a>
+    </section>
+
+    <nav class="section-nav" aria-label="Secciones del expediente">
+      <a href="#perfil">PERFIL</a><a href="#origen">ORIGEN</a><a href="#arsenal">ARSENAL</a><a
+        href="#alfred">ALFRED</a><a href="#batifamilia">BATIFAMILIA</a><a href="#robins">ROBINS</a>
+    </nav>
+
+    <!-- ═══ 01 · IDENTIDAD ═══ -->
+    <section class="content-section" id="perfil">
+      <div class="section-heading"><span>01 / IDENTIDAD</span>
+        <h2>El hombre detrás del murciélago</h2>
+        <p>De día, el heredero más famoso de Gotham. De noche, la sombra que temen sus criminales.</p>
+      </div>
+      <div class="profile-grid">
+        <article class="profile-card" data-reveal><span class="card-index">PERFIL DEL HÉROE</span>
+          <h3>Bruce<br><em>Wayne</em></h3>
+          <p>Multimillonario, dueño de Wayne Enterprises y filántropo. Usa su fortuna, su intelecto y años de
+            entrenamiento para librar una guerra contra el crimen que empezó la noche en que perdió a sus padres.</p>
+          <div class="card-signature">“SOY LA NOCHE.”</div>
+        </article>
+        <div class="fact-list" data-reveal>
+          <div class="fact"><span>NOMBRE</span><b>Bruce Thomas Wayne</b></div>
+          <div class="fact"><span>IDENTIDAD</span><b>Secreta</b></div>
+          <div class="fact"><span>BASE</span><b>Baticueva · Mansión Wayne, Gotham City</b></div>
+          <div class="fact"><span>OCUPACIÓN</span><b>Empresario / filántropo</b></div>
+          <div class="fact"><span>AFILIACIONES</span><b>Justice League · Batifamilia</b></div>
+          <div class="fact"><span>DEBUT</span><b>Detective Comics #27 · 1939</b></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 02 · ORIGEN ═══ -->
+    <section class="story-band" id="origen">
+      <div class="story-art" aria-hidden="true">
+        <img class="story-image" src="img/batman/batman comic.webp" alt="">
+        <span class="story-number">GC // 02</span>
+      </div>
+      <div class="story-copy"><span class="eyebrow">02 / EL ORIGEN</span>
+        <h2>Una noche en Crime Alley.<br><em>Una promesa para siempre.</em></h2>
+        <p>Cuando Bruce tenía ocho años, un ladrón asesinó a sus padres, Thomas y Martha Wayne, a la salida de un
+          cine. Esa noche juró que dedicaría su vida a que nadie más sufriera lo mismo.</p>
+        <p>Pasó años recorriendo el mundo para entrenar su cuerpo y su mente. De regreso en Gotham, un murciélago
+          que entró por la ventana le dio la respuesta: el símbolo que usaría para sembrar miedo entre los
+          criminales.</p>
+        <p class="quote">“Los criminales son supersticiosos y cobardes. Tengo que convertirme en algo que les
+          inspire terror.”</p>
+      </div>
+    </section>
+
+    <!-- ═══ 03 · ARSENAL ═══ -->
+    <section class="content-section" id="arsenal">
+      <div class="section-heading"><span>03 / ARSENAL</span>
+        <h2>Sin superpoderes</h2>
+        <p>Todo lo que tiene lo ganó con disciplina, ingenio y preparación.</p>
+      </div>
+      <div class="ability-grid" data-reveal-group>
+        <article class="ability" data-reveal><span class="ability-icon">01</span>
+          <h3>El mejor detective</h3>
+          <p>Analiza escenas, rastrea pistas y deduce lo que otros no ven. Así resuelve los casos de Gotham.</p>
+        </article>
+        <article class="ability" data-reveal><span class="ability-icon">02</span>
+          <h3>Artes marciales</h3>
+          <p>Domina decenas de estilos de combate y entrena su cuerpo al límite de lo humano.</p>
+        </article>
+        <article class="ability" data-reveal><span class="ability-icon">03</span>
+          <h3>Cinturón y tecnología</h3>
+          <p>Batarangs, gancho, Batimóvil y la Baticomputadora: herramientas diseñadas para cada situación.</p>
+        </article>
+        <article class="ability" data-reveal><span class="ability-icon">04</span>
+          <h3>Preparación</h3>
+          <p>Siempre tiene un plan, y un plan de respaldo. Incluso para enfrentar a sus propios aliados.</p>
+        </article>
+      </div>
+      <div class="weakness"><span class="weakness-mark">!</span>
+        <div><span>SU REGLA</span>
+          <p>No mata. Su código le impide quitar una vida, incluso la de sus peores enemigos, y eso hace que la
+            pelea contra el Joker nunca termine. Además, bajo la capa sigue siendo humano: se lastima, se cansa y
+            carga con el peso de cada persona que no pudo salvar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 04 · ALFRED ═══ -->
+    <section class="content-section alfred-section" id="alfred">
+      <div class="alfred-grid">
+        <div class="alfred-photo" data-reveal>
+          <img src="img/batman/alfred.jpg" alt="Alfred Pennyworth frente a las tumbas de los Wayne">
+        </div>
+        <div class="alfred-copy" data-reveal><span class="eyebrow">04 / EL GUARDIÁN DE LA BATICUEVA</span>
+          <h2>Alfred<br><em>Pennyworth</em></h2>
+          <p>Mayordomo de la familia Wayne y el padre que Bruce necesitó después de aquella noche. Ex actor y ex
+            agente de inteligencia británico, cura sus heridas, mantiene la Baticueva y es la única voz que se
+            anima a decirle que está equivocado.</p>
+          <p class="quote">“¿Por qué nos caemos, señor? Para aprender a levantarnos.”</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 05 · BATIFAMILIA ═══ -->
+    <section class="family-section" id="batifamilia">
+      <div class="section-heading"><span>05 / LA BATIFAMILIA</span>
+        <h2>Nadie protege Gotham solo</h2>
+        <p>Batman empezó solo, pero con los años reunió a un equipo que comparte su misión.</p>
+      </div>
+      <div class="family-grid">
+        <ul class="family-list" data-reveal-group>
+          <li data-reveal><b>Nightwing</b><span>Dick Grayson, el primer Robin.</span></li>
+          <li data-reveal><b>Red Hood</b><span>Jason Todd, el Robin que volvió de la muerte.</span></li>
+          <li data-reveal><b>Robin</b><span>Damian Wayne, hijo de Bruce.</span></li>
+          <li data-reveal><b>Batgirl</b><span>Barbara Gordon, hija del comisionado.</span></li>
+          <li data-reveal><b>Batwoman</b><span>Kate Kane, prima de Bruce.</span></li>
+          <li data-reveal><b>Black Bat</b><span>Cassandra Cain, maestra del combate.</span></li>
+          <li data-reveal><b>Spoiler</b><span>Stephanie Brown.</span></li>
+          <li data-reveal><b>Huntress</b><span>Helena Bertinelli.</span></li>
+        </ul>
+        <figure class="family-photo" data-reveal>
+          <img src="img/batman/bat-family.jpg" alt="La Batifamilia saltando desde un edificio de Gotham bajo la Batiseñal"
+            loading="lazy">
+          <figcaption>LA BATIFAMILIA · BAJO LA BATISEÑAL</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ═══ 06 · ROBINS ═══
+         Las fotos empiezan en sombras y "salen" a la luz al aparecer en pantalla (batman.js). -->
+    <section class="legacy-section" id="robins">
+      <div class="section-heading"><span>06 / EL LEGADO DE ROBIN</span>
+        <h2>Los chicos maravilla</h2>
+        <p>Cuatro jóvenes llevaron el nombre de Robin junto a Batman. Cada uno dejó su marca.</p>
+      </div>
+      <div class="robins-banner" data-reveal>
+        <img src="img/batman/all robins.webp" alt="Dick Grayson, Jason Todd, Tim Drake y Damian Wayne juntos"
+          loading="lazy">
+      </div>
+      <div class="legacy-grid robin-grid" data-reveal-group>
+        <article class="legacy-card robin-card" data-reveal>
+          <div class="robin-photo">
+            <img src="img/batman/nightwing.jpg" alt="Dick Grayson como Nightwing" loading="lazy">
+            <span class="legacy-no">01</span>
+          </div>
+          <span class="robin-meta">DETECTIVE COMICS #38 · 1940</span>
+          <h3>Dick Grayson</h3>
+          <p>Acróbata de circo y el primer Robin. Al crecer se independizó como Nightwing, protector de Blüdhaven.</p>
+        </article>
+        <article class="legacy-card robin-card" data-reveal>
+          <div class="robin-photo">
+            <img src="img/batman/red hood.jpg" alt="Jason Todd como Red Hood" loading="lazy">
+            <span class="legacy-no">02</span>
+          </div>
+          <span class="robin-meta">BATMAN #357 · 1983</span>
+          <h3>Jason Todd</h3>
+          <p>El Robin rebelde, asesinado por el Joker. Volvió como Red Hood, dispuesto a cruzar la línea que Batman
+            nunca cruza.</p>
+        </article>
+        <article class="legacy-card robin-card" data-reveal>
+          <div class="robin-photo">
+            <img src="img/batman/tim drake.jpg" alt="Tim Drake como Robin" loading="lazy">
+            <span class="legacy-no">03</span>
+          </div>
+          <span class="robin-meta">BATMAN #436 · 1989</span>
+          <h3>Tim Drake</h3>
+          <p>Descubrió solo la identidad de Batman y se ofreció a ser Robin. Es el gran detective de la nueva
+            generación.</p>
+        </article>
+        <article class="legacy-card robin-card" data-reveal>
+          <div class="robin-photo">
+            <img src="img/batman/damian wayne.jpg" alt="Damian Wayne como Robin" loading="lazy">
+            <span class="legacy-no">04</span>
+          </div>
+          <span class="robin-meta">BATMAN #655 · 2006</span>
+          <h3>Damian Wayne</h3>
+          <p>Hijo de Bruce y Talia al Ghul, criado por la Liga de Asesinos. Aprende a ser héroe como el Robin más
+            joven e impulsivo.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="curiosity">
+      <!-- Batiseñal: haz de luz con el logo proyectado y murciélagos alrededor -->
+      <div class="bat-signal" aria-hidden="true">
+        <span class="signal-beam"></span>
+        <span class="signal-disc"><img src="img/batman/batman-logo.webp" alt=""></span>
+      </div>
+      <div class="bat-sky" data-bats="signal" aria-hidden="true"></div>
+      <span class="eyebrow">NOTA DEL ARCHIVO</span>
+      <h2>Soy la venganza.<br>Soy la noche.</h2>
+      <p>Batman no tiene poderes ni anillos mágicos. Es una persona que convirtió su peor noche en una promesa, y
+        que cada vez que se enciende la Batiseñal vuelve a cumplirla.</p>
+      <a class="source-link" href="https://www.dc.com/characters/batman" target="_blank"
+        rel="noreferrer">CONSULTAR PERFIL OFICIAL DE DC ↗</a>
+      <a href="#inicio">VOLVER AL INICIO ↑</a>
+    </section>
+  </main>
+  <footer class="detail-footer"><a class="brand" href="index.html">ICONS <b>ARCHIVE</b></a><span>EXPEDIENTE 003 · BRUCE
+      WAYNE</span><span>EL CABALLERO DE LA NOCHE</span></footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
+  <script src="batman.js"></script>
+</body>
+
+</html>

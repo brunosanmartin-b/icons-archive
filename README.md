@@ -13,8 +13,9 @@ Proyecto escolar de **Programación Web Dinámica** · EPET N.º 20 (Neuquén).
 | **Selector** (`index.html`) | 8 héroes, color propio por personaje, navegación con flechas, teclado y deslizamiento en celular. | Listo |
 | **Expediente de Spider-Man** | Logo animado, nombre en 3D, galería, efecto de lente con los actores y tarjetas de los portadores del emblema. | Listo |
 | **Expediente de Green Lantern** | Juramento con luz y humo, línea de tiempo horizontal de Hal Jordan y Linternas de la Tierra. | Listo |
+| **Expediente de Batman** | Batman camuflado en la oscuridad con una luz que lo revela, bandadas de murciélagos animados, Alfred, la Batifamilia, los cuatro Robins y la Batiseñal. | Listo |
 | **Backend** (`server/`) | API REST con Node.js y Express que sirve los héroes y el sitio. | Listo (solo lectura) |
-| **Otros 6 expedientes** | Batman, Superman, Hulk, Iron Man, Wonder Woman y Captain America. | Pendiente (el botón muestra "En preparación") |
+| **Otros 5 expedientes** | Superman, Hulk, Iron Man, Wonder Woman y Captain America. | Pendiente (el botón muestra "En preparación") |
 
 ## Tecnologías
 
@@ -94,6 +95,7 @@ curl http://localhost:3000/api/heroes/batman
 ├── index.html, styles.css, script.js      # selector
 ├── spider-man.html / .css / .js           # expediente de Spider-Man
 ├── green-lantern.html / .css / .js        # expediente de Green Lantern
+├── batman.html / .css / .js               # expediente de Batman
 ├── bootstrap-layer.css                    # Bootstrap dentro de una capa CSS (ver documentacion/bootstrap.md)
 ├── img/                                   # logos e imágenes
 ├── documentacion/                         # documentos del proyecto
@@ -127,7 +129,7 @@ El servidor publica solo lo que es del sitio: la carpeta `img/` y los `.html`, `
 
 ## Próximas etapas posibles
 
-- Expedientes de los 6 héroes restantes.
+- Expedientes de los 5 héroes restantes.
 - Base de datos (SQLite) en lugar del JSON.
 - Votos por héroe y ranking.
 - Panel de administración con validación y autenticación.

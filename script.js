@@ -9,7 +9,7 @@
 const heroesLocales = [
   { name: 'SPIDER-MAN', universe: 'FRIENDLY NEIGHBORHOOD', publisher: 'MARVEL', logo: 'img/5ec273a36c295800046c81e4.webp', tone: '#e62429', alt: 'Símbolo de Spider-Man', page: 'spider-man.html' },
   { name: 'GREEN LANTERN', universe: 'IN BRIGHTEST DAY', publisher: 'DC', logo: 'img/Green-Lantern-Logo-PNG-HD.webp', tone: '#2ee678', alt: 'Símbolo de Green Lantern', page: 'green-lantern.html' },
-  { name: 'BATMAN', universe: 'THE DARK KNIGHT', publisher: 'DC', logo: 'img/Batman-movie-Logo-2005.webp', tone: '#c3cedb', alt: 'Símbolo de Batman', page: null },
+  { name: 'BATMAN', universe: 'THE DARK KNIGHT', publisher: 'DC', logo: 'img/Batman-movie-Logo-2005.webp', tone: '#c3cedb', alt: 'Símbolo de Batman', page: 'batman.html' },
   { name: 'SUPERMAN', universe: 'MAN OF TOMORROW', publisher: 'DC', logo: 'img/simple-red-superman-logo-png-13.webp', tone: '#3d7bff', alt: 'Símbolo de Superman', page: null },
   { name: 'HULK', universe: 'STRONGEST THERE IS', publisher: 'MARVEL', logo: 'img/Hulk-Logo-PNG-Picture.png', tone: '#8fd14f', alt: 'Símbolo de Hulk', page: null },
   { name: 'IRON MAN', universe: 'GENIUS. BILLIONAIRE. HERO.', publisher: 'MARVEL', logo: 'img/iron-man-head-logo-graphic-5365rvzihxgtignv.webp', tone: '#f0a63a', alt: 'Símbolo de Iron Man', page: null },
