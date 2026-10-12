@@ -83,3 +83,26 @@ test('Los archivos del backend no se publican', async () => {
   const { estado } = await pedir('/server/package.json');
   assert.equal(estado, 404);
 });
+
+test('Tampoco con la ruta codificada o con mayúsculas', async () => {
+  for (const ruta of ['/%73erver/package.json', '/SERVER/package.json', '/%64ocumentacion/contexto.md', '/server%5Cpackage.json', '/README.md']) {
+    const { estado } = await pedir(ruta);
+    assert.equal(estado, 404, ruta);
+  }
+});
+
+test('Se publican las páginas, estilos, scripts e imágenes', async () => {
+  for (const ruta of ['/spider-man.html', '/styles.css', '/bootstrap-layer.css', '/script.js', '/img/background.jpg', '/img/green%20lantern/hal%20jordan.webp']) {
+    const { estado } = await pedir(ruta);
+    assert.equal(estado, 200, ruta);
+  }
+});
+
+test('POST con JSON mal formado → 400, no 500', async () => {
+  const respuesta = await fetch(base + '/api/heroes', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{mal json'
+  });
+  assert.equal(respuesta.status, 400);
+});

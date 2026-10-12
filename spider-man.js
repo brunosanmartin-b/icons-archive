@@ -4,6 +4,7 @@
    2. Entradas al hacer scroll ([data-reveal])
    3. Galería · Actores: lente que revela la máscara
    4. Portadores: fotos faltantes y selección de tarjetas
+   5. Menú de secciones (ScrollSpy de Bootstrap)
    ============================================================ */
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canHover = window.matchMedia('(hover: hover)').matches;
@@ -160,5 +161,15 @@ document.querySelectorAll('.bearer-photo').forEach((button) => {
       button.setAttribute('aria-pressed', 'true');
     }
     bearerGrid.classList.toggle('has-selection', selecting);
+  });
+});
+
+/* ── 5. Menú de secciones ──
+   El ScrollSpy de Bootstrap marca el enlace de la sección visible; acá se
+   agrega aria-current para que los lectores de pantalla también lo anuncien. */
+document.body.addEventListener('activate.bs.scrollspy', (event) => {
+  document.querySelectorAll('.section-nav a').forEach((link) => {
+    if (link === event.relatedTarget) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
   });
 });

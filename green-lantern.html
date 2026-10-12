@@ -8,6 +8,11 @@
   <meta name="description"
     content="Conocé el origen del Cuerpo de Green Lanterns, la historia de Hal Jordan y los Linternas Verdes de la Tierra en Icons Archive.">
   <title>Green Lantern — Icons Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap">
+  <!-- Bootstrap 5.3 en una capa CSS: disponible sin alterar el diseño (ver bootstrap-layer.css) -->
+  <link rel="stylesheet" href="bootstrap-layer.css">
   <link rel="stylesheet" href="green-lantern.css">
 </head>
 
@@ -17,7 +22,10 @@
     <a class="back-link" href="index.html"><span>←</span> VOLVER AL SELECTOR</a>
     <span class="file-id">EXPEDIENTE <b>002 / DC</b></span>
   </header>
-  <main>
+  <!-- ScrollSpy de Bootstrap: marca en el menú la sección que se está leyendo.
+       Va en <main> y no en <body>, porque body tiene overflow-x: hidden y Bootstrap
+       lo tomaría como contenedor de scroll -->
+  <main data-bs-spy="scroll" data-bs-target=".section-nav">
     <section class="hero" id="inicio">
       <div class="hero-art" aria-hidden="true"></div>
       <div class="hero-light"></div>
@@ -275,6 +283,8 @@
   </main>
   <footer class="detail-footer"><a class="brand" href="index.html">ICONS <b>ARCHIVE</b></a><span>EXPEDIENTE 002 · HAL
       JORDAN</span><span>VOLUNTAD SIN MIEDO</span></footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
   <script src="green-lantern.js"></script>
 </body>
 

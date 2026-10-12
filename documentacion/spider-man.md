@@ -88,6 +88,7 @@ graph TD
 
 ### 3.3. Barra de Navegación por Secciones (`.section-nav`)
 * Menú anclado con: `PERFIL`, `GALERÍA`, `HISTORIA`, `HABILIDADES`, `UNIVERSO` y `PORTADORES`.
+* **ScrollSpy de Bootstrap:** `<main data-bs-spy="scroll" data-bs-target=".section-nav">` marca con la clase `.active` el enlace de la sección visible, y `spider-man.js` le suma `aria-current="location"` para los lectores de pantalla. No cambia el aspecto, porque el CSS no le da estilo a `.active`. Va en `<main>` y no en `<body>`, porque `body` tiene `overflow-x: hidden` y Bootstrap lo tomaría como contenedor de scroll (y nunca marcaría nada).
 
 ### 3.4. Sección 01 / Identidad (`#perfil`)
 * **Tarjeta de Perfil (`.profile-card`):** `Peter Parker` en serif con la sentencia *“WITH GREAT POWER…”*.
@@ -184,6 +185,9 @@ Mantiene la lente de la versión anterior con algunos cambios:
 * **Fotos faltantes:** si una imagen no carga, se quita y la tarjeta queda con el diseño de reemplazo (clase `.no-photo`).
 * **Selección:** una tarjeta por vez. Maneja `aria-pressed` para lectores de pantalla.
 
+### 5.5. Menú de secciones
+* Escucha el evento `activate.bs.scrollspy` de Bootstrap y pone `aria-current="location"` en el enlace de la sección visible (y lo quita de los demás).
+
 ---
 
 ## 6. Optimización Responsive y Correcciones Técnicas
@@ -217,7 +221,8 @@ Las capas `::before` y `::after` del título heredaban el `text-shadow` del cuer
 * **Táctil:** la inclinación 3D solo se activa con `(hover: hover)`. La lente de actores se controla con toque (clic).
 * **Semántica:** `<header>`, `<main>`, `<section>`, `<article>`, `<details>`, `<summary>`, `<footer>`.
 * **Enlaces externos:** `target="_blank"` con `rel="noreferrer"`.
-* **Sin dependencias:** JavaScript vanilla y CSS puro. `IntersectionObserver` y `:has()` son soportados por los navegadores actuales.
+* **Dependencias:** el código propio es JavaScript vanilla y CSS puro. Bootstrap 5.3 se carga desde `bootstrap-layer.css` dentro de una capa CSS (`@layer`), así que no pisa ningún estilo de `spider-man.css` (ver `documentacion/bootstrap.md`); su JS se usa para el ScrollSpy y se carga con `defer` y SRI. `IntersectionObserver` y `:has()` son soportados por los navegadores actuales.
+* **Fuentes:** se piden con `<link>` y `preconnect` en el `<head>` en lugar de `@import` dentro del CSS, así el navegador empieza a descargarlas antes.
 
 ---
 
@@ -227,7 +232,8 @@ Las capas `::before` y `::after` del título heredaban el `text-shadow` del cuer
 |---|---|---|
 | `spider-man.html` | HTML5 | Estructura semántica, contenidos del expediente, galería, tarjetas de portadores y navegación. |
 | `spider-man.css` | CSS3 | Tokens, maquetación, título 3D, animaciones de entrada, efectos de hover y responsive. |
-| `spider-man.js` | JS (ES6+) | Inclinación 3D, entradas al hacer scroll, lente de actores (con máscara completa) y selección de portadores. |
+| `spider-man.js` | JS (ES6+) | Inclinación 3D, entradas al hacer scroll, lente de actores (con máscara completa), selección de portadores y `aria-current` del menú (ScrollSpy). |
+| `bootstrap-layer.css` | CSS3 | Bootstrap 5.3 dentro de una capa CSS, con una capa de compatibilidad que deshace su reset. |
 | `documentacion/contexto.md` | Markdown | Documentación general de la pantalla de selección principal. |
 | `documentacion/spider-man.md` | Markdown | Este documento. |
 
@@ -244,10 +250,13 @@ Las capas `::before` y `::after` del título heredaban el `text-shadow` del cuer
 | Actores | Clic o toque para mostrar la máscara completa. Entrada escalonada. |
 | Portadores del emblema | Tarjetas de selección con las fotos de Miles Morales, Ben Reilly, Otto Octavius y Miguel O’Hara, entrada escalonada, hover 3D y selección. Si una foto falta, queda un diseño de reemplazo. |
 | Correcciones | Galería en tablet, título con sombras heredadas y helper de fotos faltantes. |
+| Bootstrap | Se sumó Bootstrap 5.3 en una capa CSS (sin cambios visuales) y su ScrollSpy en el menú de secciones, con `aria-current`. |
+| Fuentes | Pasaron de `@import` en el CSS a `<link>` con `preconnect` en el HTML. |
 
 ---
 
 ## 10. Pendientes y Observaciones
 
-* **Fuentes:** se cargan desde Google Fonts. Sin conexión, la página usa fuentes de reemplazo.
+* **Fuentes y Bootstrap:** las fuentes vienen de Google Fonts y Bootstrap del CDN jsDelivr. Sin conexión, la página usa fuentes de reemplazo y funciona sin Bootstrap (solo se pierde el marcado del menú).
+* **Accesibilidad pendiente:** las fotos de los actores son `<div>` con clic, así que no se pueden activar con el teclado.
 * **Compatibilidad:** `:has()` y `mask-image` requieren navegadores actuales. En navegadores viejos, la galería y el brillo del logo se ven sin esos efectos, pero el contenido sigue visible.

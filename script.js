@@ -31,6 +31,10 @@ const count = $('#stageCount');
 const explore = $('#exploreButton');
 const exploreLabel = $('#exploreLabel');
 const roster = $('#roster');
+let rosterItems = [];
+// Temporizadores de la animación de cambio: se cancelan si llega otro cambio
+let switchTimer = 0;
+let arriveTimer = 0;
 
 // Convierte un héroe de la API (campos en español) al formato que usa el selector
 function desdeApi(heroe) {
@@ -70,10 +74,17 @@ function armarRoster() {
     button.dataset.name = hero.name;
     button.style.setProperty('--chip-tone', hero.tone);
     button.setAttribute('aria-label', 'Seleccionar ' + hero.name);
-    button.innerHTML = '<img src="' + hero.logo + '" alt="" aria-hidden="true">';
+    // La imagen se crea como elemento (no con innerHTML) para que un dato
+    // raro de la API nunca se interprete como HTML
+    const img = document.createElement('img');
+    img.src = hero.logo;
+    img.alt = '';
+    img.setAttribute('aria-hidden', 'true');
+    button.append(img);
     button.addEventListener('click', () => selectHero(index));
     roster.append(button);
   });
+  rosterItems = [...roster.children];
 }
 
 // Vuelca los datos del héroe actual en la página
@@ -105,7 +116,7 @@ function render() {
     exploreLabel.textContent = 'EN PREPARACIÓN';
   }
 
-  document.querySelectorAll('.roster-item').forEach((item, i) => {
+  rosterItems.forEach((item, i) => {
     item.classList.toggle('active', i === current);
     item.setAttribute('aria-pressed', String(i === current));
   });
@@ -115,21 +126,27 @@ function selectHero(index) {
   const next = (index + heroes.length) % heroes.length;
   if (next === current) return;
   current = next;
+  // Con clics rápidos, los temporizadores anteriores se cancelan: si no, un
+  // render viejo o un "arrive" pendiente cortaban la animación del nuevo héroe
+  window.clearTimeout(switchTimer);
+  window.clearTimeout(arriveTimer);
   stage.classList.remove('arrive');
   stage.classList.add('switching');
   watermark.classList.add('switching');
-  window.setTimeout(() => {
+  switchTimer = window.setTimeout(() => {
     render();
     stage.classList.remove('switching');
     watermark.classList.remove('switching');
     stage.classList.add('arrive');
-    window.setTimeout(() => stage.classList.remove('arrive'), 600);
+    arriveTimer = window.setTimeout(() => stage.classList.remove('arrive'), 600);
   }, 180);
 }
 
 $('#previous').addEventListener('click', () => selectHero(current - 1));
 $('#next').addEventListener('click', () => selectHero(current + 1));
 document.addEventListener('keydown', event => {
+  // Alt/Ctrl/Cmd + flecha son atajos del navegador (Alt+← = volver atrás)
+  if (event.altKey || event.ctrlKey || event.metaKey) return;
   if (event.key === 'ArrowLeft') selectHero(current - 1);
   if (event.key === 'ArrowRight') selectHero(current + 1);
 });

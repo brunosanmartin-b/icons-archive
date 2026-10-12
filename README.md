@@ -18,7 +18,7 @@ Proyecto escolar de **Programación Web Dinámica** · EPET N.º 20 (Neuquén).
 
 ## Tecnologías
 
-- **Frontend:** HTML, CSS y JavaScript, sin librerías. Tipografías de Google Fonts (Cinzel, Barlow Condensed, DM Sans).
+- **Frontend:** HTML, CSS y JavaScript. **Bootstrap 5.3** (desde CDN) cargado dentro de una capa CSS para que no altere el diseño propio, y su ScrollSpy en los expedientes. Tipografías de Google Fonts (Cinzel, Barlow Condensed, DM Sans).
 - **Backend:** Node.js 18 o superior, Express 5 y cors. Nodemon para desarrollo.
 - **Datos:** archivo JSON (`server/data/heroes.json`).
 - **Pruebas:** `node:test` y `fetch`, incluidos en Node.
@@ -66,7 +66,7 @@ Solo lectura en esta etapa.
 | `GET` | `/api/heroes?editorial=marvel` | Filtra por editorial (`marvel` o `dc`). |
 | `GET` | `/api/heroes/:id` | Un héroe por su `id` (ej. `batman`). |
 
-Errores: `400` (editorial inválida), `404` (héroe o ruta inexistente) y `500` (error interno), siempre con cuerpo `{ "error": "..." }`.
+Errores: `400` (editorial inválida o JSON mal formado), `404` (héroe o ruta inexistente) y `500` (error interno), siempre con cuerpo `{ "error": "..." }`.
 
 Ejemplo:
 
@@ -94,6 +94,7 @@ curl http://localhost:3000/api/heroes/batman
 ├── index.html, styles.css, script.js      # selector
 ├── spider-man.html / .css / .js           # expediente de Spider-Man
 ├── green-lantern.html / .css / .js        # expediente de Green Lantern
+├── bootstrap-layer.css                    # Bootstrap dentro de una capa CSS (ver documentacion/bootstrap.md)
 ├── img/                                   # logos e imágenes
 ├── documentacion/                         # documentos del proyecto
 └── server/                                # backend
@@ -117,6 +118,12 @@ curl http://localhost:3000/api/heroes/batman
 - Textos alternativos en las imágenes y navegación por teclado.
 - Respeto de `prefers-reduced-motion`: las animaciones se reducen si el sistema lo pide.
 - Diseño adaptado a computadora, tablet y celular.
+- El menú de secciones de cada expediente marca la sección actual (ScrollSpy de Bootstrap + `aria-current`).
+- Las fuentes se cargan con `<link>` y `preconnect` desde el HTML, no con `@import` dentro del CSS, para que el navegador las pida antes.
+
+## Seguridad
+
+El servidor publica solo lo que es del sitio: la carpeta `img/` y los `.html`, `.css` y `.js` de la raíz. Todo lo demás (`server/`, `documentacion/`, `README.md`, archivos ocultos) responde `404`, aunque la ruta llegue codificada (`/%73erver/...`) o con `.`/`..`.
 
 ## Próximas etapas posibles
 
@@ -127,7 +134,7 @@ curl http://localhost:3000/api/heroes/batman
 
 ## Documentación
 
-En la carpeta [`documentacion/`](documentacion/) hay una guía por cada expediente, la documentación de la API (`api-rest-express.md`) y dos PDF: la explicación del backend y la propuesta del proyecto.
+En la carpeta [`documentacion/`](documentacion/) hay una guía por cada expediente, la documentación de la API (`api-rest-express.md`), cómo está integrado Bootstrap (`bootstrap.md`) y dos PDF: la explicación del backend y la propuesta del proyecto.
 
 ## Créditos y aviso
 

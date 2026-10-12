@@ -2,6 +2,7 @@
    GREEN LANTERN — interacciones de la página
    1. Línea de tiempo horizontal de Hal Jordan (flechas + progreso)
    2. Animación de entrada y efecto 3D de "Linternas de la Tierra"
+   3. Menú de secciones (ScrollSpy de Bootstrap)
    ============================================================ */
 
 /* ── 1. Línea de tiempo de Hal Jordan ── */
@@ -25,8 +26,13 @@ if (timeline) {
     const max = timeline.scrollWidth - timeline.clientWidth;
     const ratio = max > 0 ? timeline.scrollLeft / max : 1;
     progress.style.width = Math.max(ratio * 100, 8) + '%';
-    prevBtn.disabled = timeline.scrollLeft <= 2;
-    nextBtn.disabled = timeline.scrollLeft >= max - 2;
+    // El scroll-snap alinea la primera/última tarjeta dentro del padding de la
+    // lista, así que el scroll "al inicio" puede quedar en 4px y no en 0
+    const styles = getComputedStyle(timeline);
+    const startEdge = parseFloat(styles.paddingLeft) + 2;
+    const endEdge = parseFloat(styles.paddingRight) + 2;
+    prevBtn.disabled = timeline.scrollLeft <= startEdge;
+    nextBtn.disabled = timeline.scrollLeft >= max - endEdge;
     timeline.parentElement.classList.toggle('is-start', prevBtn.disabled);
     timeline.parentElement.classList.toggle('is-end', nextBtn.disabled);
   };
@@ -34,7 +40,11 @@ if (timeline) {
   prevBtn.addEventListener('click', () => timeline.scrollBy({ left: -step(), behavior: 'smooth' }));
   nextBtn.addEventListener('click', () => timeline.scrollBy({ left: step(), behavior: 'smooth' }));
   timeline.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
+  // ResizeObserver también avisa cuando cambia el ancho por la carga de las
+  // fuentes, no solo al redimensionar la ventana (con 'resize' la barra y las
+  // flechas quedaban desactualizadas hasta el primer scroll)
+  if ('ResizeObserver' in window) new ResizeObserver(update).observe(timeline);
+  else window.addEventListener('resize', update);
 
   // Con el foco en la línea, las flechas del teclado la recorren
   timeline.addEventListener('keydown', event => {
@@ -90,3 +100,13 @@ if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
     });
   });
 }
+
+/* ── 3. Menú de secciones ──
+   El ScrollSpy de Bootstrap marca el enlace de la sección visible; acá se
+   agrega aria-current para que los lectores de pantalla también lo anuncien. */
+document.body.addEventListener('activate.bs.scrollspy', (event) => {
+  document.querySelectorAll('.section-nav a').forEach((link) => {
+    if (link === event.relatedTarget) link.setAttribute('aria-current', 'location');
+    else link.removeAttribute('aria-current');
+  });
+});

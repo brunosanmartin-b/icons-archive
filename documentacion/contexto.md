@@ -73,6 +73,7 @@ Se incorporó la ilustración clásica de la Liga de la Justicia (arte de Alex R
 | [`styles.css`](file:///c:/Users/sanma/Desktop/escuela/programacion%20web%20dinamica/proyecto%201/styles.css) | Rediseño Integral | Implementación de tokens de diseño, tipografía Bangers, eliminación de marcos en hero-stage, nuevo fondo noir con filtros, flechas minimalistas y animaciones de resplandor y escala. |
 | [`script.js`](file:///c:/Users/sanma/Desktop/escuela/programacion%20web%20dinamica/proyecto%201/script.js) | Lógica de Animación | Incorporación del disparo de animación `arrive` en la carga inicial para que el primer héroe también entre con efecto dinámico. |
 | [`index.html`](file:///c:/Users/sanma/Desktop/escuela/programacion%20web%20dinamica/proyecto%201/index.html) | Estructura & Accesibilidad | Mantenimiento de la semántica HTML5, atributos ARIA para lectores de pantalla y soporte de eventos táctiles. |
+| `bootstrap-layer.css` | Integración de Bootstrap | Bootstrap 5.3 dentro de una capa CSS: disponible para próximas páginas sin alterar el diseño del selector. Ver `bootstrap.md`. |
 
 ---
 
@@ -81,3 +82,13 @@ Se incorporó la ilustración clásica de la Liga de la Justicia (arte de Alex R
 * **Consultas de Movimiento Reducido:** Se implementó `@media (prefers-reduced-motion: reduce)` para deshabilitar las transiciones en usuarios sensibles a animaciones.
 * **Contraste:** Todo el texto principal cumple con el ratio de contraste WCAG AA/AAA sobre fondo oscuro.
 * **Diseño Responsivo:** Breakpoints adaptados para pantallas menores a `700px` y `390px`, manteniendo la legibilidad y la escala adecuada de los logotipos en dispositivos móviles.
+
+---
+
+## 6. Correcciones Posteriores (`script.js` e `index.html`)
+
+* **Cambios rápidos de héroe:** con varios clics seguidos en las flechas, los temporizadores de la animación (`switching` / `arrive`) se pisaban y cortaban la entrada del nuevo héroe. Ahora `selectHero()` cancela los temporizadores pendientes antes de empezar otro cambio.
+* **Atajos del navegador:** `Alt + ←` (volver atrás) también cambiaba de héroe. Ahora las flechas se ignoran si se presionan con `Alt`, `Ctrl` o `Cmd`.
+* **Roster seguro:** la imagen de cada ficha se crea con `createElement` en lugar de `innerHTML`, para que un dato de la API nunca se interprete como HTML. Las fichas quedan guardadas en `rosterItems` y no se buscan en el DOM en cada `render()`.
+* **Fuentes:** se cargan con `<link>` y `preconnect` en el `<head>` en lugar de `@import` dentro de `styles.css`.
+* **Bootstrap:** se carga desde `bootstrap-layer.css`, dentro de una capa CSS, sin cambiar ningún estilo del selector (ver `bootstrap.md`).

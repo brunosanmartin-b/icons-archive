@@ -40,6 +40,7 @@ proyecto 1/
 ├── index.html, styles.css, script.js        ← selector (consume la API)
 ├── spider-man.html / .css / .js             ← expediente de Spider-Man
 ├── green-lantern.html / .css / .js          ← expediente de Green Lantern
+├── bootstrap-layer.css                      ← Bootstrap en una capa CSS
 └── server/                                  ← backend
     ├── package.json
     ├── .gitignore                           ← excluye node_modules/
@@ -58,7 +59,8 @@ proyecto 1/
 **Decisiones respecto de la propuesta original:**
 * **El frontend no se movió a `public/`.** Sigue en la raíz del proyecto, así se puede seguir abriendo con doble clic. Express sirve esa carpeta directamente.
 * **La app se separó en `app.js` y `server.js`.** `app.js` arma la aplicación sin ponerla a escuchar, lo que permite que los tests la levanten en un puerto libre. `server.js` solo la inicia.
-* **Lo que no se publica:** las carpetas `server/` y `documentacion/` responden `404` si se las pide desde el navegador, y la carpeta `.git` se ignora (`dotfiles: 'ignore'`).
+* **Lo que se publica (lista blanca):** solo la carpeta `img/` y los archivos `.html`, `.css` y `.js` de la raíz. Todo lo demás (`server/`, `documentacion/`, `README.md`) responde `404`, y los archivos ocultos como `.git` se ignoran (`dotfiles: 'ignore'`).
+  * Antes se bloqueaban `/server` y `/documentacion` con una lista negra, pero se podía saltar codificando la ruta: `/%73erver/package.json` (la "s" como `%73`) devolvía el `package.json` del backend, y lo mismo pasaba con `node_modules` y la documentación. La lista blanca decodifica y normaliza la ruta igual que `express.static` antes de decidir, así que esos trucos ya no funcionan.
 
 ---
 
@@ -137,6 +139,7 @@ En esta primera etapa la API es **de solo lectura**.
 | Código | Caso | Cuerpo |
 |---|---|---|
 | `400` | La editorial no es `marvel` ni `dc`, llega vacía o repetida. | `{ "error": "Editorial inválida" }` |
+| `400` | El cuerpo de la petición es un JSON mal formado. | `{ "error": "Solicitud inválida" }` |
 | `404` | No existe un héroe con ese `id`. | `{ "error": "Héroe no encontrado" }` |
 | `404` | La ruta de la API no existe. | `{ "error": "Ruta no encontrada" }` |
 | `500` | Error interno del servidor. | `{ "error": "Error interno del servidor" }` |
@@ -145,7 +148,7 @@ En esta primera etapa la API es **de solo lectura**.
 
 ## 7. Funcionamiento del Código
 
-* **`app.js`:** registra `cors()` y `express.json()`, monta las rutas en `/api/heroes`, responde `404` en JSON para cualquier otra ruta de `/api`, bloquea `/server` y `/documentacion`, sirve el frontend con `express.static` y define el manejador centralizado de errores (`500`).
+* **`app.js`:** desactiva la cabecera `X-Powered-By`, registra `cors()` y `express.json()`, monta las rutas en `/api/heroes`, responde `404` en JSON para cualquier otra ruta de `/api`, filtra los archivos públicos con `esArchivoPublico()` (lista blanca), sirve el frontend con `express.static` y define el manejador centralizado de errores: los errores del cliente (como un JSON mal formado) conservan su código `4xx` y el resto responde `500`.
 * **`routes/heroes.routes.js`:** asocia `GET /` con `listarHeroes` y `GET /:id` con `obtenerHeroe`.
 * **`controllers/heroes.controller.js`:** contiene la lógica. `listarHeroes` valida la editorial (texto, sin espacios, en minúsculas) y filtra. `obtenerHeroe` busca por `id`.
 * **`server.js`:** importa la app y la pone a escuchar en `PORT` (3000 por defecto).
@@ -158,7 +161,7 @@ El selector pide los héroes a la API al cargar la página:
 
 1. `cargarHeroes()` hace `fetch('/api/heroes')`.
 2. `desdeApi()` convierte cada héroe al formato que usa el selector (por ejemplo, `nombre` → `name` en mayúsculas, `pagina` → `page`).
-3. Con los datos listos se arman las fichas del roster (`armarRoster()`) y se muestra el primer héroe (`render()`).
+3. Con los datos listos se arman las fichas del roster (`armarRoster()`) y se muestra el primer héroe (`render()`). Las imágenes del roster se crean con `createElement`, no con `innerHTML`, para que un dato de la API nunca se interprete como HTML.
 
 **Datos de respaldo:** `script.js` conserva la lista de héroes como `heroesLocales`. Se usa en estos casos:
 * La página se abre con doble clic (`file://`), donde no hay servidor.
@@ -185,6 +188,9 @@ Así el selector funciona siempre, con o sin backend. El contador (`01 / 08`) se
 | `GET /api/villanos` | `404`, ruta no encontrada |
 | `GET /` | `200`, sirve `index.html` |
 | `GET /server/package.json` | `404`, el backend no se publica |
+| `/%73erver/package.json`, `/SERVER/package.json`, `/%64ocumentacion/contexto.md`, `/server%5Cpackage.json`, `/README.md` | `404`, tampoco con la ruta codificada o en mayúsculas |
+| `/spider-man.html`, `/styles.css`, `/bootstrap-layer.css`, `/script.js`, imágenes de `img/` | `200`, el sitio se publica |
+| `POST /api/heroes` con JSON mal formado | `400`, no `500` |
 
 ### 9.2. Pruebas manuales
 * **Navegador:** abrir `http://localhost:3000/api/heroes`.

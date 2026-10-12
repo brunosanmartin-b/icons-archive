@@ -87,6 +87,7 @@ graph TD
 
 ### 3.3. Barra de Navegación por Secciones (`.section-nav`)
 * Enlaces de salto rápido: `EL CUERPO`, `HAL JORDAN`, `LINTERNAS DE LA TIERRA`.
+* **ScrollSpy de Bootstrap:** `<main data-bs-spy="scroll" data-bs-target=".section-nav">` marca con la clase `.active` el enlace de la sección visible, y `green-lantern.js` le suma `aria-current="location"` para los lectores de pantalla. No cambia el aspecto, porque el CSS no le da estilo a `.active`. Va en `<main>` y no en `<body>`, porque `body` tiene `overflow-x: hidden` y Bootstrap lo tomaría como contenedor de scroll (y nunca marcaría nada).
 * En celulares se desplaza horizontalmente sin cortar el primer enlace (los márgenes automáticos a cada extremo reemplazan al centrado, que dejaba enlaces fuera de la pantalla).
 
 ### 3.4. Sección 01 / El Cuerpo (`#cuerpo`)
@@ -102,8 +103,8 @@ graph TD
   * Un pulso de luz (`.timeline-item::after`) viaja por el riel, escalonado con la variable `--i`.
   * Un conector vertical une cada año con su tarjeta.
   * En hover, la tarjeta sube y el año se enciende en verde.
-* **Barra de progreso (`.h-timeline-progress`):** Muestra qué parte de la línea ya se recorrió.
-* **Difuminado de bordes:** Aparece solo del lado donde quedan más tarjetas (clases `.is-start` / `.is-end`).
+* **Barra de progreso (`.h-timeline-progress`):** Muestra qué parte de la línea ya se recorrió. Se recalcula con `ResizeObserver` cada vez que cambia el ancho de la línea (al redimensionar la ventana y también cuando terminan de cargar las fuentes).
+* **Difuminado de bordes:** Aparece solo del lado donde quedan más tarjetas (clases `.is-start` / `.is-end`). Para saber si la línea está en un extremo se tiene en cuenta el `padding` de la lista: el `scroll-snap` deja el scroll en 4 px y no en 0 al inicio.
 * **Formas de recorrerla:** flechas en pantalla, deslizar con el dedo o el trackpad, y las flechas del teclado cuando la línea tiene el foco.
 
 > El perfil de Hal Jordan (tarjeta y ficha técnica) se quitó para que la sección se enfoque solamente en su historia.
@@ -155,7 +156,9 @@ El remate del juramento (`.oath-glow`) combina varias capas:
 * **Teclado:** la línea de tiempo tiene `tabindex="0"` y se recorre con las flechas; los botones tienen `aria-label` y se deshabilitan al llegar a un extremo.
 * **Elementos decorativos:** los anillos, el humo, el aura y la barra de progreso están marcados como decorativos (`aria-hidden`).
 * **Enlaces externos:** `target="_blank"` con `rel="noreferrer"`.
-* **JavaScript mínimo (`green-lantern.js`):** solo maneja la línea de tiempo y las animaciones de las tarjetas. Si no carga, todo el contenido sigue visible y la línea de tiempo se puede deslizar igual.
+* **JavaScript mínimo (`green-lantern.js`):** maneja la línea de tiempo, las animaciones de las tarjetas y el `aria-current` del menú. Si no carga, todo el contenido sigue visible y la línea de tiempo se puede deslizar igual.
+* **Bootstrap:** el CSS se carga desde `bootstrap-layer.css`, dentro de una capa (`@layer`), así que no pisa ningún estilo de `green-lantern.css` (ver `documentacion/bootstrap.md`). El JS (`bootstrap.bundle.min.js`) se carga con `defer` y verificación de integridad (SRI).
+* **Fuentes:** se piden con `<link>` y `preconnect` en el `<head>` en lugar de `@import` dentro del CSS, así el navegador empieza a descargarlas antes.
 
 ---
 
@@ -187,7 +190,8 @@ Las imágenes se adaptan a la proporción 4:5 (`aspect-ratio: 4 / 5`) con recort
 |---|---|---|
 | `green-lantern.html` | HTML5 | Estructura semántica, contenido del expediente, juramento, línea de tiempo horizontal y tarjetas de Linternas con fotos. |
 | `green-lantern.css` | CSS3 | Tokens verdes, maquetación, efecto del juramento, línea de tiempo horizontal, animaciones de las tarjetas y responsive. |
-| `green-lantern.js` | JavaScript | Flechas, progreso y difuminado de la línea de tiempo; entrada al hacer scroll e inclinación 3D de las tarjetas. |
+| `green-lantern.js` | JavaScript | Flechas, progreso y difuminado de la línea de tiempo; entrada al hacer scroll e inclinación 3D de las tarjetas; `aria-current` del menú (ScrollSpy). |
+| `bootstrap-layer.css` | CSS3 | Bootstrap 5.3 dentro de una capa CSS, con una capa de compatibilidad que deshace su reset. |
 | `index.html` / `styles.css` / `script.js` | HTML / CSS / JS | Selector principal. El botón "Abrir expediente" lleva a `green-lantern.html` cuando Green Lantern está seleccionado. |
 | `documentacion/green-lantern.md` | Markdown | Este documento. |
 | `documentacion/spider-man.md` | Markdown | Documentación del expediente de Spider-Man. |
@@ -204,6 +208,9 @@ Las imágenes se adaptan a la proporción 4:5 (`aspect-ratio: 4 / 5`) con recort
 | Línea de tiempo horizontal | Pasó de vertical a horizontal, con título propio que aclara que es sobre Hal Jordan. |
 | Animaciones en Linternas | Entrada escalonada al hacer scroll y efectos de hover (3D, borde giratorio, escaneo). |
 | Nuevo archivo | Se creó `green-lantern.js`. |
+| Bootstrap | Se sumó Bootstrap 5.3 en una capa CSS (sin cambios visuales) y su ScrollSpy en el menú de secciones, con `aria-current`. |
+| Fuentes | Pasaron de `@import` en el CSS a `<link>` con `preconnect` en el HTML. |
+| Correcciones de la línea de tiempo | La flecha "←" no se deshabilitaba al inicio por el `scroll-snap`; la barra de progreso quedaba desactualizada hasta el primer scroll (ahora usa `ResizeObserver`). |
 
 ---
 
@@ -211,4 +218,4 @@ Las imágenes se adaptan a la proporción 4:5 (`aspect-ratio: 4 / 5`) con recort
 
 * **Enlace a DC:** Conviene probar el enlace externo para confirmar que sigue funcionando.
 * **Imagen `.jxl` de la carpeta `img`:** `the-green-lantern-corps_dc-comics_silo_600x.jxl` no se usa, porque ese formato no se muestra en Chrome. Si se quiere usar, hay que convertirla a `.jpg` o `.webp`.
-* **Fuentes:** las tipografías se cargan desde Google Fonts, así que sin conexión a internet la página usa fuentes de reemplazo.
+* **Fuentes y Bootstrap:** las tipografías vienen de Google Fonts y Bootstrap del CDN jsDelivr. Sin conexión, la página usa fuentes de reemplazo y funciona sin Bootstrap (el diseño no depende de él; solo se pierde el marcado del menú).
